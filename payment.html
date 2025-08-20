@@ -106,6 +106,7 @@
     <h3>Payment and Contact Information</h3>
 
     <form id="contactForm" action="https://formspree.io/f/xblkvpja" method="POST" class="grid">
+      <input type="hidden" name="orderSummary" id="orderSummary" />
 
       <!-- left -->
       <div>
@@ -207,7 +208,8 @@
     total: document.getElementById('total'),
     confirm: document.getElementById('confirmBtn'),
     toast: document.getElementById('toast'),
-    form: document.getElementById('contactForm')
+    form: document.getElementById('contactForm'),
+    orderSummary: document.getElementById('orderSummary')
   };
 
   const fmt = n => 'P' + Number(n).toFixed(0);
@@ -257,7 +259,15 @@
     els.total.textContent = fmt(sub + deliveryFee);
     // share subtotal for back navigation safety
     localStorage.setItem(SUB_KEY, String(sub));
+    els.orderSummary.value = buildSummary(sub);
     validateForm();
+  }
+
+  function buildSummary(sub){
+    let lines = cart.map(it=>`${it.qty || 1} x ${it.name} - ${fmt(Number(it.price)*Number(it.qty||1))}`).join('\n');
+    if(!lines) lines = 'No items';
+    const total = sub + deliveryFee;
+    return `${lines}\nSubtotal: ${fmt(sub)}\nDelivery: ${fmt(deliveryFee)}\nTotal: ${fmt(total)}`;
   }
 
   // highlight chosen payment card
