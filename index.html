@@ -21,6 +21,11 @@
         color:var(--text);
         background:var(--bg);
       }
+      body.cocktail{
+        --pink:#4a90e2;
+        --blue:#4a90e2;
+        --bg:#f0f6ff;
+      }
 
       /* top nav */
       .nav{
@@ -158,6 +163,7 @@
         </div>
 
 <nav class="nav__links">
+      <a href="#" id="modeToggle">Cocktails</a>
       <a href="flavors.html">Flavors</a>
       <a href="howitworks.html">How It Works</a>
       <a href="about.html">About & Contact</a>
@@ -170,7 +176,7 @@
       <div class="copy">
         <h1 class="title">
           <span class="pink">Fresh</span>
-          <span class="yellow">Mocktails</span><br />
+          <span class="yellow" id="modeWord">Mocktails</span><br />
           <span class="blue">for Students</span>
         </h1>
 
@@ -187,9 +193,9 @@
       </div>
 
       <div class="media">
-        <picture>
-          <source type="image/webp" srcset="images/mocktails.webp" />
-          <img class="photo" src="images/mocktails.png" alt="Colorful mocktail drink" width="200" loading="lazy" decoding="async" />
+        <picture id="heroPic">
+          <source type="image/webp" id="heroSrc" srcset="images/mocktails.webp" />
+          <img class="photo" id="heroImg" src="images/mocktails.png" alt="Colorful mocktail drink" width="200" loading="lazy" decoding="async" />
         </picture>
         <span class="blob" aria-hidden="true"></span>
         <span class="blob2" aria-hidden="true"></span>
@@ -228,5 +234,46 @@
       </div>
     </section>
 
+    <script>
+      const MODE_KEY = 'nm_mode';
+      function getMode(){ return localStorage.getItem(MODE_KEY) || 'mocktails'; }
+      function setMode(m){ localStorage.setItem(MODE_KEY, m); }
+      function applyMode(){
+        const mode = getMode();
+        document.body.classList.toggle('cocktail', mode === 'cocktails');
+        document.querySelectorAll('.mocktails').forEach(el=> el.style.display = mode==='mocktails' ? '' : 'none');
+        document.querySelectorAll('.cocktails').forEach(el=> el.style.display = mode==='cocktails' ? '' : 'none');
+        const t = document.getElementById('modeToggle');
+        if(t) t.textContent = mode === 'mocktails' ? 'Cocktails' : 'Mocktails';
+        const w = document.getElementById('modeWord');
+        if(w) w.textContent = mode === 'cocktails' ? 'Cocktails' : 'Mocktails';
+        const src = document.getElementById('heroSrc');
+        const img = document.getElementById('heroImg');
+        if(mode === 'cocktails'){
+          if(src) src.srcset = 'images/Okavango.webp';
+          if(img){
+            img.src = 'images/Okavango.webp';
+            img.alt = 'Colorful cocktail drink';
+          }
+        }else{
+          if(src) src.srcset = 'images/mocktails.webp';
+          if(img){
+            img.src = 'images/mocktails.png';
+            img.alt = 'Colorful mocktail drink';
+          }
+        }
+      }
+      document.addEventListener('DOMContentLoaded', ()=>{
+        const toggle = document.getElementById('modeToggle');
+        if(toggle){
+          toggle.addEventListener('click', e=>{
+            e.preventDefault();
+            setMode(getMode()==='mocktails'?'cocktails':'mocktails');
+            applyMode();
+          });
+        }
+        applyMode();
+      });
+    </script>
   </body>
 </html>
