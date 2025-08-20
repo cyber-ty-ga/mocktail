@@ -24,31 +24,41 @@
 }
 .cart-fab.disabled{ opacity:.5; pointer-events:none }
 
-    :root{
-      --pink:#ff4f70;
-      --yellow:#ffd93b;
-      --blue:#4a90e2;
-      --ink:#0f172a;
-      --text:#1e293b;
-      --muted:#64748b;
-      --card:#ffffff;
-      --bg:#ffffff;
-      --ring:#eef2f7;
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0}
-    body{
-      font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      color:var(--text);
-      background:var(--bg);
-    }
-    body.cocktail{
-      --pink:#4a90e2;
-      --bg:#f0f6ff;
-    }
+      :root{
+        --pink:#ff4f70;
+        --yellow:#ffd93b;
+        --blue:#4a90e2;
+        --ink:#0f172a;
+        --text:#1e293b;
+        --muted:#64748b;
+        --card:#ffffff;
+        --bg:#ffffff;
+        --ring:#eef2f7;
+      }
+      :root[data-theme="cocktails"]{
+        --pink:#e83e8c;
+        --yellow:#ffc107;
+        --blue:#1f7ae0;
+        --ink:#e6edf7;
+        --text:#cfd9e7;
+        --muted:#9fb0c6;
+        --card:#0f172a;
+        --bg:#0b1220;
+        --ring:#1e293b;
+      }
+      *{
+        box-sizing:border-box;
+        transition:background-color .35s ease, color .35s ease, border-color .35s ease, box-shadow .35s ease;
+      }
+      html,body{margin:0}
+      body{
+        font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+        color:var(--text);
+        background:var(--bg);
+      }
 
-    /* nav */
-    .nav{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--ring);z-index:10}
+      /* nav */
+      .nav{position:sticky;top:0;background:var(--card);border-bottom:1px solid var(--ring);z-index:10}
     .nav__inner{
       max-width:1200px;margin:0 auto;padding:18px 24px;
       display:flex;align-items:center;justify-content:space-between;
@@ -122,8 +132,56 @@
       box-shadow:0 10px 24px rgba(2,8,23,.25);font-weight:700;font-size:14px;
       opacity:0;pointer-events:none;transition:opacity .2s ease, transform .2s ease;
     }
-    .toast.show{opacity:1;transform:translateX(-50%) translateY(-4px)}
-  </style>
+      .toast.show{opacity:1;transform:translateX(-50%) translateY(-4px)}
+
+      /* theme toggle */
+      #themeBurst{position:fixed; inset:0; pointer-events:none; z-index:55; opacity:0; transform:scale(.2)}
+      #themeBurst.show{animation:theme-burst .7s ease forwards}
+      @keyframes theme-burst{
+        0%{opacity:.9; transform:scale(.2)}
+        100%{opacity:0; transform:scale(2.4)}
+      }
+      .theme-toggle{
+        position:fixed; right:20px; top:20px; z-index:60;
+        display:inline-flex; align-items:center; gap:10px;
+        padding:10px 14px; border-radius:999px; font-weight:800;
+        background:linear-gradient(90deg,#ff6a8c,#ffa55b); color:#fff; text-decoration:none;
+        box-shadow:0 12px 26px rgba(255,122,122,.28);
+      }
+      .theme-toggle:hover{transform:translateY(-1px)}
+      .theme-toggle.pulse{
+        box-shadow:
+          0 0 0 0 rgba(255,106,140,.45),
+          0 0 0 10px rgba(255,106,140,.12),
+          0 0 0 22px rgba(255,106,140,.06);
+        animation:pulseGlow 1.6s ease-in-out infinite;
+      }
+      @keyframes pulseGlow{
+        0%{box-shadow:0 0 0 0 rgba(255,106,140,.45),0 0 0 10px rgba(255,106,140,.12),0 0 0 22px rgba(255,106,140,.06)}
+        70%{box-shadow:0 0 0 10px rgba(255,106,140,0),0 0 0 22px rgba(255,106,140,0),0 0 0 36px rgba(255,106,140,0)}
+        100%{box-shadow:0 0 0 0 rgba(255,106,140,0),0 0 0 10px rgba(255,106,140,0),0 0 0 22px rgba(255,106,140,0)}
+      }
+      .booze-pill{
+        position:fixed; right:20px; top:70px; z-index:65;
+        display:none; align-items:center; gap:10px;
+        padding:8px 12px; border-radius:999px; font-weight:900; font-size:13px;
+        background:linear-gradient(90deg,#111827,#334155); color:#fff;
+        box-shadow:0 12px 26px rgba(2,8,23,.28);
+        cursor:pointer; user-select:none;
+        animation:floaty 2.2s ease-in-out infinite;
+      }
+      .booze-pill .tag{
+        display:inline-grid; place-items:center; min-width:22px; height:22px; border-radius:999px;
+        background:#ff4f70; color:#fff; font-size:12px; font-weight:900;
+        box-shadow:0 8px 20px rgba(255,79,112,.28);
+      }
+      .booze-pill.show{display:inline-flex}
+      @keyframes floaty{
+        0%{transform:translateY(0)}
+        50%{transform:translateY(-4px)}
+        100%{transform:translateY(0)}
+      }
+    </style>
 </head>
 <body>
 
@@ -139,18 +197,27 @@
       <span>Nexus Mocktails</span>
     </a>
 
-    <nav class="nav__links">
-      <a href="#" id="modeToggle">Cocktails</a>
-      <a href="flavors.html" class="active">Flavors</a>
-      <a href="howitworks.html">How It Works</a>
-      <a href="about.html">About & Contact</a>
-    </nav>
+      <nav class="nav__links">
+        <a href="flavors.html" class="active">Flavors</a>
+        <a href="howitworks.html">How It Works</a>
+        <a href="about.html">About & Contact</a>
+      </nav>
   </div>
-</header>
+  </header>
 
-<section class="wrap">
-  <h1 class="title">
-    Explore our <span class="pink">Fresh</span> <span class="yellow">Flavors</span>
+  <div id="themeBurst" aria-hidden="true"></div>
+  <button id="themeToggle" class="theme-toggle" type="button">
+    <span id="themeIcon">🥤</span>
+    <span id="themeText">Mocktails</span>
+  </button>
+  <div id="boozePill" class="booze-pill" role="button" tabindex="0" aria-label="Open cocktails menu">
+    <span>Tap for Cocktails</span>
+    <span class="tag">18+</span>
+  </div>
+
+  <section class="wrap">
+<h1 class="title">
+    Explore our <span class="pink" id="wordA">Fresh</span> <span class="yellow" id="wordB">Flavors</span>
   </h1>
   <p class="lead">Pick a favorite and enjoy a chilled moment</p>
 </section>
@@ -494,30 +561,60 @@
   updateFab();
 </script>
 
-<script>
-  const MODE_KEY = 'nm_mode';
-  function getMode(){ return localStorage.getItem(MODE_KEY) || 'mocktails'; }
-  function setMode(m){ localStorage.setItem(MODE_KEY, m); }
-  function applyMode(){
-    const mode = getMode();
-    document.body.classList.toggle('cocktail', mode === 'cocktails');
-    document.querySelectorAll('.grid.mocktails').forEach(el => el.style.display = mode==='mocktails' ? '' : 'none');
-    document.querySelectorAll('.grid.cocktails').forEach(el => el.style.display = mode==='cocktails' ? '' : 'none');
-    const t = document.getElementById('modeToggle');
-    if(t) t.textContent = mode === 'mocktails' ? 'Cocktails' : 'Mocktails';
-  }
-  document.addEventListener('DOMContentLoaded', () => {
-    const t = document.getElementById('modeToggle');
-    if(t){
-      t.addEventListener('click', e => {
-        e.preventDefault();
-        setMode(getMode()==='mocktails' ? 'cocktails' : 'mocktails');
-        applyMode();
-      });
+  <script>
+    const THEME_KEY = 'nm_theme';
+    const burst = document.getElementById('themeBurst');
+    const btn   = document.getElementById('themeToggle');
+    const tIcon = document.getElementById('themeIcon');
+    const tText = document.getElementById('themeText');
+    const pill  = document.getElementById('boozePill');
+    const wordA = document.getElementById('wordA');
+    const wordB = document.getElementById('wordB');
+
+    function setTheme(name){
+      document.documentElement.setAttribute('data-theme', name);
+      localStorage.setItem(THEME_KEY, name);
+      const isCocktails = name === 'cocktails';
+      tIcon.textContent = isCocktails ? '🍸' : '🥤';
+      tText.textContent = isCocktails ? 'Cocktails' : 'Mocktails';
+      btn.classList.toggle('pulse', !isCocktails);
+      if(pill) pill.classList.toggle('show', !isCocktails);
+      document.querySelectorAll('.grid.mocktails').forEach(el => el.style.display = isCocktails ? 'none' : '');
+      document.querySelectorAll('.grid.cocktails').forEach(el => el.style.display = isCocktails ? '' : 'none');
+      if(wordA) wordA.textContent = isCocktails ? 'Bold' : 'Fresh';
+      if(wordB) wordB.textContent = isCocktails ? 'Cocktails' : 'Flavors';
     }
-    applyMode();
-  });
-</script>
+
+    function burstFor(name){
+      return name === 'cocktails'
+        ? 'radial-gradient(circle at 70% 30%, rgba(31,122,224,.9), rgba(232,62,140,.9))'
+        : 'radial-gradient(circle at 70% 30%, rgba(255,217,59,.9), rgba(255,106,140,.9))';
+    }
+
+    btn.addEventListener('click', ()=>{
+      const cur  = localStorage.getItem(THEME_KEY) || 'mocktails';
+      const next = cur === 'mocktails' ? 'cocktails' : 'mocktails';
+      burst.style.background = burstFor(next);
+      burst.classList.remove('show'); void burst.offsetWidth; burst.classList.add('show');
+      setTheme(next);
+    });
+
+    pill.addEventListener('click', ()=>{
+      burst.style.background = burstFor('cocktails');
+      burst.classList.remove('show'); void burst.offsetWidth; burst.classList.add('show');
+      setTheme('cocktails');
+    });
+
+    pill.addEventListener('keydown', e=>{
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        pill.click();
+      }
+    });
+
+    const firstTheme = localStorage.getItem(THEME_KEY) || 'mocktails';
+    setTheme(firstTheme);
+  </script>
 
 <a id="cartFab" class="cart-fab disabled" href="order.html" aria-disabled="true">
   <span class="badge" id="fabCount">0</span>
