@@ -3,26 +3,26 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Nexus Mocktails — Flavors</title>
+  <title>Nexus Mocktails | Flavors</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <style>
     /* floating checkout button */
-.cart-fab{
-  position:fixed; right:20px; bottom:20px;
-  display:inline-flex; align-items:center; gap:10px;
-  padding:12px 18px; border-radius:999px;
-  background:linear-gradient(90deg,#ff6a8c,#ffa55b);
-  color:#fff; text-decoration:none; font-weight:800;
-  box-shadow:0 14px 28px rgba(255,122,122,.28);
-  transition:transform .08s ease, box-shadow .2s ease;
-  z-index:50;
-}
-.cart-fab:hover{ transform:translateY(-1px); box-shadow:0 18px 34px rgba(255,122,122,.32) }
-.cart-fab .badge{
-  min-width:22px; height:22px; border-radius:999px;
-  display:inline-grid; place-items:center; background:#0f172a; color:#fff; font-size:12px; font-weight:800;
-}
-.cart-fab.disabled{ opacity:.5; pointer-events:none }
+    .cart-fab{
+      position:fixed; right:20px; bottom:20px;
+      display:inline-flex; align-items:center; gap:10px;
+      padding:12px 18px; border-radius:999px;
+      background:linear-gradient(90deg,#ff6a8c,#ffa55b);
+      color:#fff; text-decoration:none; font-weight:800;
+      box-shadow:0 14px 28px rgba(255,122,122,.28);
+      transition:transform .08s ease, box-shadow .2s ease;
+      z-index:50;
+    }
+    .cart-fab:hover{ transform:translateY(-1px); box-shadow:0 18px 34px rgba(255,122,122,.32) }
+    .cart-fab .badge{
+      min-width:22px; height:22px; border-radius:999px;
+      display:inline-grid; place-items:center; background:#0f172a; color:#fff; font-size:12px; font-weight:800;
+    }
+    .cart-fab.disabled{ opacity:.5; pointer-events:none }
 
     :root{
       --pink:#ff4f70;
@@ -119,6 +119,92 @@
       opacity:0;pointer-events:none;transition:opacity .2s ease, transform .2s ease;
     }
     .toast.show{opacity:1;transform:translateX(-50%) translateY(-4px)}
+
+    /* theme palette switch */
+    :root[data-theme="mocktails"]{
+      --pink:#ff4f70; --yellow:#ffd93b; --blue:#4a90e2;
+      --ink:#0f172a; --text:#1e293b; --muted:#64748b;
+      --card:#ffffff; --bg:#ffffff; --ring:#eef2f7;
+    }
+    :root[data-theme="cocktails"]{
+      --pink:#e83e8c; --yellow:#ffc107; --blue:#1f7ae0;
+      --ink:#e6edf7; --text:#cfd9e7; --muted:#9fb0c6;
+      --card:#0f172a; --bg:#0b1220; --ring:#1e293b;
+    }
+
+    /* smooth color changes */
+    *{transition: background-color .35s ease, color .35s ease, border-color .35s ease, box-shadow .35s ease}
+
+    /* dark tweaks */
+    [data-theme="cocktails"] .card{background:var(--card); border-color:var(--ring)}
+    [data-theme="cocktails"] .card__title{color:var(--ink)}
+    [data-theme="cocktails"] .card__text{color:#c7d2e1}
+    [data-theme="cocktails"] .nav{background:var(--card); border-bottom-color:var(--ring)}
+    [data-theme="cocktails"] body{background:var(--bg); color:var(--text)}
+
+    /* toggle button */
+    .theme-toggle{
+      position:fixed; right:20px; top:20px; z-index:60;
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 14px; border-radius:999px; font-weight:800;
+      background:linear-gradient(90deg,#ff6a8c,#ffa55b); color:#fff; text-decoration:none;
+      box-shadow:0 12px 26px rgba(255,122,122,.28);
+    }
+    .theme-toggle:hover{transform:translateY(-1px)}
+
+    /* glow spotlight on the toggle when in mocktails */
+    .theme-toggle.pulse{
+      box-shadow:
+        0 0 0 0 rgba(255,106,140,.45),
+        0 0 0 10px rgba(255,106,140,.12),
+        0 0 0 22px rgba(255,106,140,.06);
+      animation:pulseGlow 1.6s ease-in-out infinite;
+    }
+    @keyframes pulseGlow{
+      0%{ box-shadow:
+        0 0 0 0 rgba(255,106,140,.45),
+        0 0 0 10px rgba(255,106,140,.12),
+        0 0 0 22px rgba(255,106,140,.06) }
+      70%{ box-shadow:
+        0 0 0 10px rgba(255,106,140,.0),
+        0 0 0 22px rgba(255,106,140,.0),
+        0 0 0 36px rgba(255,106,140,.0) }
+      100%{ box-shadow:
+        0 0 0 0 rgba(255,106,140,.0),
+        0 0 0 10px rgba(255,106,140,.0),
+        0 0 0 22px rgba(255,106,140,.0) }
+    }
+
+    /* burst overlay */
+    #themeBurst{position:fixed; inset:0; pointer-events:none; z-index:55; opacity:0; transform:scale(.2)}
+    #themeBurst.show{animation:theme-burst .7s ease forwards}
+    @keyframes theme-burst{
+      0%{opacity:.9; transform:scale(.2)}
+      100%{opacity:0; transform:scale(2.4)}
+    }
+
+    /* Cocktails pill hint visible only in mocktails */
+    .booze-pill{
+      position:fixed; right:20px; top:70px; z-index:65;
+      display:none; align-items:center; gap:10px;
+      padding:8px 12px; border-radius:999px; font-weight:900; font-size:13px;
+      background:linear-gradient(90deg,#111827,#334155); color:#fff;
+      box-shadow:0 12px 26px rgba(2,8,23,.28);
+      cursor:pointer; user-select:none;
+      transform:translateY(0);
+      animation:floaty 2.2s ease-in-out infinite;
+    }
+    .booze-pill .tag{
+      display:inline-grid; place-items:center; min-width:22px; height:22px; border-radius:999px;
+      background:#ff4f70; color:#fff; font-size:12px; font-weight:900;
+      box-shadow:0 8px 20px rgba(255,79,112,.28);
+    }
+    .booze-pill.show{ display:inline-flex }
+    @keyframes floaty{
+      0%{ transform:translateY(0) }
+      50%{ transform:translateY(-4px) }
+      100%{ transform:translateY(0) }
+    }
   </style>
 </head>
 <body>
@@ -146,167 +232,114 @@
 
 <section class="wrap">
   <h1 class="title">
-    Explore our <span class="pink">Fresh</span> <span class="yellow">Flavors</span>
+    Explore our <span class="pink" id="wordA">Fresh</span> <span class="yellow" id="wordB">Flavors</span>
   </h1>
   <p class="lead">Pick a favorite and enjoy a chilled moment</p>
 </section>
 
-<section class="grid">
-  <!-- Card 1 -->
-  <article class="card">
-    <picture>
-      <source type="image/webp" srcset="images/mocktail.webp" />
-      <img class="card__img" src="images/mocktail.png" alt="Orange sunrise mocktail" loading="lazy" decoding="async" />
-    </picture>
-    <div class="card__body">
-      <span class="badge">Bestseller</span>
-      <h3 class="card__title">Citrus Sunrise</h3>
-      <p class="card__text">Orange and pineapple with a mint finish</p>
-      <div class="card__row">
-        <span class="price">P32</span>
-        <a class="btn add" href="#"
-           data-name="Citrus Sunrise"
-           data-price="32"
-           data-note="Orange and pineapple with a mint finish"
-           data-emoji="🍊">
-          Add
-          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-      </div>
-    </div>
-  </article>
-
-  <!-- Card 2 -->
-  <article class="card">
-    <picture>
-      <source type="image/webp" srcset="images/strawberrylime.webp" />
-      <img class="card__img" src="images/strawberrylime.png" alt="Strawberry lime duo" loading="lazy" decoding="async" />
-    </picture>
-    <div class="card__body">
-      <span class="badge">New</span>
-      <h3 class="card__title">Strawberry Lime</h3>
-      <p class="card__text">Sweet strawberry with zesty lime</p>
-      <div class="card__row">
-        <span class="price">P34</span>
-        <a class="btn add" href="#"
-           data-name="Strawberry Lime"
-           data-price="34"
-           data-note="Sweet strawberry with zesty lime"
-           data-emoji="🍓">
-          Add
-          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-      </div>
-    </div>
-  </article>
-
-  <!-- Card 3 -->
-  <article class="card">
-    <picture>
-      <source type="image/webp" srcset="images/mojitotwist.webp" />
-      <img class="card__img" src="images/mojitotwist.png" alt="Green mojito mocktail" loading="lazy" decoding="async" />
-    </picture>
-    <div class="card__body">
-      <span class="badge">Cool</span>
-      <h3 class="card__title">Mojito Twist</h3>
-      <p class="card__text">Lime and mint with a cool sparkle</p>
-      <div class="card__row">
-        <span class="price">P30</span>
-        <a class="btn add" href="#"
-           data-name="Mojito Twist"
-           data-price="30"
-           data-note="Lime and mint with a cool sparkle"
-           data-emoji="🍃">
-          Add
-          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-      </div>
-    </div>
-  </article>
-
-  <!-- Card 4 -->
-  <article class="card">
-    <picture>
-      <source type="image/webp" srcset="images/berryblaze.webp" />
-      <img class="card__img" src="images/berryblaze.png" alt="Berry mocktail" loading="lazy" decoding="async" />
-    </picture>
-    <div class="card__body">
-      <span class="badge">Sweet</span>
-      <h3 class="card__title">Berry Bliss</h3>
-      <p class="card__text">Mixed berries with a soft fizz</p>
-      <div class="card__row">
-        <span class="price">P33</span>
-        <a class="btn add" href="#"
-           data-name="Berry Bliss"
-           data-price="33"
-           data-note="Mixed berries with a soft fizz"
-           data-emoji="🫐">
-          Add
-          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-      </div>
-    </div>
-  </article>
-
-  <!-- Card 5 -->
-  <article class="card">
-    <picture>
-      <source type="image/webp" srcset="images/mangowave.webp" />
-      <img class="card__img" src="images/mangowave.png" alt="Tropical mocktail" loading="lazy" decoding="async" />
-    </picture>
-    <div class="card__body">
-      <span class="badge">Tropical</span>
-      <h3 class="card__title">Mango Wave</h3>
-      <p class="card__text">Mango and passion fruit with chill vibes</p>
-      <div class="card__row">
-        <span class="price">P35</span>
-        <a class="btn add" href="#"
-           data-name="Mango Wave"
-           data-price="35"
-           data-note="Mango and passion fruit with chill vibes"
-           data-emoji="🥭">
-          Add
-          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-      </div>
-    </div>
-  </article>
-
-  <!-- Card 6 -->
-  <article class="card">
-    <picture>
-      <source type="image/webp" srcset="images/pearfizz.webp" />
-      <img class="card__img" src="images/pearfizz.png" alt="Pear fizz mocktail" loading="lazy" decoding="async" />
-    </picture>
-    <div class="card__body">
-      <span class="badge">Light</span>
-      <h3 class="card__title">Pear Fizz</h3>
-      <p class="card__text">Crisp pear with gentle sparkle</p>
-      <div class="card__row">
-        <span class="price">P31</span>
-        <a class="btn add" href="#"
-           data-name="Pear Fizz"
-           data-price="31"
-           data-note="Crisp pear with gentle sparkle"
-           data-emoji="🍐">
-          Add
-          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-      </div>
-    </div>
-  </article>
-</section>
+<!-- dynamic grid -->
+<section class="grid" id="menuGrid"></section>
 
 <p class="note wrap">Prices are for demo only</p>
 
 <!-- tiny toast -->
 <div id="toast" class="toast" role="status" aria-live="polite">Added to cart</div>
 
+<!-- theme elements -->
+<div id="themeBurst" aria-hidden="true"></div>
+<button id="themeToggle" class="theme-toggle" type="button">
+  <span id="themeIcon">🥤</span>
+  <span id="themeText">Mocktails</span>
+</button>
+
+<!-- cocktails hint pill -->
+<div id="boozePill" class="booze-pill" role="button" tabindex="0" aria-label="Open cocktails menu">
+  <span>Tap for Cocktails</span>
+  <span class="tag">18+</span>
+</div>
+
+<!-- checkout button -->
+<a id="cartFab" class="cart-fab disabled" href="order.html" aria-disabled="true">
+  <span class="badge" id="fabCount">0</span>
+  Checkout
+</a>
+
 <script>
   const CART_KEY = 'nm_cart';
+  const THEME_KEY = 'nm_theme';
+
   const getCart  = () => JSON.parse(localStorage.getItem(CART_KEY) || '[]');
   const setCart  = c  => localStorage.setItem(CART_KEY, JSON.stringify(c));
 
+  const fmtP = n => 'P' + Number(n).toFixed(0);
+
+  // menus
+  const MENUS = {
+    mocktails: [
+      {img:'images/mocktail.webp',      name:'Citrus Sunrise',      price:32, note:'Orange and pineapple with a mint finish',   badge:'Bestseller', emoji:'🍊'},
+      {img:'images/strawberrylime.webp',name:'Strawberry Lime',     price:34, note:'Sweet strawberry with zesty lime',           badge:'New',        emoji:'🍓'},
+      {img:'images/mojitotwist.webp',   name:'Mojito Twist',        price:30, note:'Lime and mint with a cool sparkle',          badge:'Cool',       emoji:'🍃'},
+      {img:'images/berryblaze.webp',    name:'Berry Bliss',         price:33, note:'Mixed berries with a soft fizz',             badge:'Sweet',      emoji:'🫐'},
+      {img:'images/mangowave.webp',     name:'Mango Wave',          price:35, note:'Mango and passion fruit with chill vibes',   badge:'Tropical',   emoji:'🥭'},
+      {img:'images/pearfizz.webp',      name:'Pear Fizz',           price:31, note:'Crisp pear with gentle sparkle',             badge:'Light',      emoji:'🍐'}
+    ],
+    cocktails: [
+      {img:'images/longiland.webp',   name:'Long Island',      price:38, note:'Lime and mint over ice',                     badge:'Classic',    emoji:'🍹'},
+      {img:'images/matsieng.webp',    name:'Matsieng Footprint',      price:40, note:'Mango and lime with a sunny kick',           badge:'Popular',    emoji:'🥭'},
+      {img:'images/after%20nine.webp',name:'After Nine',price:42, note:'Strawberry and citrus with salt rim',        badge:'Bright',     emoji:'🍓'},
+      {img:'images/Okavango.webp',    name:'Okavango Ripple',      price:36, note:'Berries with lively bubbles',                badge:'New',        emoji:'🫐'},
+      {img:'images/A1.webp',      name:'The A1',        price:37, note:'Orange and pineapple with a bold twist',     badge:'Zesty',      emoji:'🍊'},
+      {img:'images/StrawberryD.webp',      name:'Strawberry Daiquiri',         price:35, note:'Pear sparkle with a crisp finish',           badge:'Light',      emoji:'🍐'}
+    ]
+  };
+
+  // build a card
+  function cardHTML(it){
+    return `
+    <article class="card">
+      <img class="card__img" src="${it.img}" alt="${it.name}" />
+      <div class="card__body">
+        <span class="badge">${it.badge}</span>
+        <h3 class="card__title">${it.name}</h3>
+        <p class="card__text">${it.note}</p>
+        <div class="card__row">
+          <span class="price">${fmtP(it.price)}</span>
+          <a class="btn add" href="#"
+             data-name="${it.name}"
+             data-price="${it.price}"
+             data-note="${it.note}"
+             data-emoji="${it.emoji}">
+            Add
+            <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </article>`;
+  }
+
+  // render menu cards
+  const grid = document.getElementById('menuGrid');
+  function renderMenu(kind){
+    const items = MENUS[kind] || MENUS.mocktails;
+    grid.innerHTML = items.map(cardHTML).join('');
+    bindAddButtons();
+    updateFab();
+  }
+
+  // header words
+  const wordA = document.getElementById('wordA');
+  const wordB = document.getElementById('wordB');
+  function setTitleForTheme(kind){
+    if(kind === 'cocktails'){
+      wordA.textContent = 'Bold';
+      wordB.textContent = 'Cocktails';
+    }else{
+      wordA.textContent = 'Fresh';
+      wordB.textContent = 'Flavors';
+    }
+  }
+
+  // add to cart
   function addToCart(item){
     const cart = getCart();
     const existing = cart.find(x => x.name === item.name);
@@ -322,23 +355,25 @@
     setTimeout(()=> t.classList.remove('show'), 900);
   }
 
-  document.querySelectorAll('.add').forEach(btn=>{
-    btn.addEventListener('click', e=>{
-      e.preventDefault();
-      addToCart({
-        name:  btn.dataset.name,
-        price: Number(btn.dataset.price),
-        note:  btn.dataset.note || '',
-        emoji: btn.dataset.emoji || '🥤'
+  function bindAddButtons(){
+    document.querySelectorAll('.add').forEach(btn=>{
+      btn.addEventListener('click', e=>{
+        e.preventDefault();
+        addToCart({
+          name:  btn.dataset.name,
+          price: Number(btn.dataset.price),
+          note:  btn.dataset.note || '',
+          emoji: btn.dataset.emoji || '🥤'
+        });
+        flashToast(`${btn.dataset.name} added`);
+        const old = btn.textContent;
+        btn.textContent = 'Added';
+        setTimeout(()=> btn.textContent = old, 700);
       });
-      flashToast(`${btn.dataset.name} added`);
-      const old = btn.textContent;
-      btn.textContent = 'Added';
-      setTimeout(()=> btn.textContent = old, 700);
     });
-  });
-</script>
-<script>
+  }
+
+  // fab count
   function getCartCount(){
     try{
       const cart = JSON.parse(localStorage.getItem('nm_cart') || '[]');
@@ -359,25 +394,65 @@
       fab.setAttribute('aria-disabled','true');
     }
   }
-
-  // update when items are added on this page
-  document.querySelectorAll('.add').forEach(b=>{
-    b.addEventListener('click', ()=> setTimeout(updateFab, 0));
-  });
-
-  // update if cart changes in another tab
   window.addEventListener('storage', e=>{
     if(e.key === 'nm_cart') updateFab();
   });
 
+  // theme toggle, burst, spotlight, and pill
+  const burst = document.getElementById('themeBurst');
+  const btn   = document.getElementById('themeToggle');
+  const tIcon = document.getElementById('themeIcon');
+  const tText = document.getElementById('themeText');
+  const pill  = document.getElementById('boozePill');
+
+  function setTheme(name){
+    document.documentElement.setAttribute('data-theme', name);
+    localStorage.setItem(THEME_KEY, name);
+    const isCocktails = name === 'cocktails';
+    tIcon.textContent = isCocktails ? '🍸' : '🥤';
+    tText.textContent = isCocktails ? 'Cocktails' : 'Mocktails';
+
+    // spotlight and pill only in mocktails
+    btn.classList.toggle('pulse', !isCocktails);
+    pill.classList.toggle('show', !isCocktails);
+
+    setTitleForTheme(name);
+    renderMenu(name);
+  }
+
+  function burstFor(name){
+    return name === 'cocktails'
+      ? 'radial-gradient(circle at 70% 30%, rgba(31,122,224,.9), rgba(232,62,140,.9))'
+      : 'radial-gradient(circle at 70% 30%, rgba(255,217,59,.9), rgba(255,106,140,.9))';
+  }
+
+  btn.addEventListener('click', ()=>{
+    const cur  = localStorage.getItem(THEME_KEY) || 'mocktails';
+    const next = cur === 'mocktails' ? 'cocktails' : 'mocktails';
+    burst.style.background = burstFor(next);
+    burst.classList.remove('show'); void burst.offsetWidth; burst.classList.add('show');
+    setTheme(next);
+  });
+
+  // pill click or Enter key
+  pill.addEventListener('click', ()=>{
+    burst.style.background = burstFor('cocktails');
+    burst.classList.remove('show'); void burst.offsetWidth; burst.classList.add('show');
+    setTheme('cocktails');
+  });
+  pill.addEventListener('keydown', e=>{
+    if(e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      pill.click();
+    }
+  });
+
   // first paint
+  const firstTheme = localStorage.getItem(THEME_KEY) || 'mocktails';
+  setTheme(firstTheme);
   updateFab();
 </script>
 
-<a id="cartFab" class="cart-fab disabled" href="order.html" aria-disabled="true">
-  <span class="badge" id="fabCount">0</span>
-  Checkout
-</a>
-
 </body>
 </html>
+
