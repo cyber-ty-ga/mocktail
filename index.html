@@ -130,6 +130,16 @@
         background:radial-gradient(ellipse at center, rgba(0,0,0,.24), rgba(0,0,0,0) 70%);
         filter:blur(6px);
       }
+
+      /* popular drinks */
+      .popular{max-width:1200px;margin:0 auto;padding:0 24px 96px;}
+      .popular h2{font-size:32px;margin:0 0 24px;font-weight:800;}
+      .popular .mocktails h2{color:var(--pink);}
+      .popular .cocktails h2{color:var(--blue);}
+      .popular-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;margin-bottom:48px;}
+      .drink-card{border:1px solid #eef2f7;border-radius:20px;overflow:hidden;box-shadow:0 10px 24px rgba(2,8,23,.08);background:#fff;}
+      .drink-card img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;}
+      .drink-card h3{margin:12px;font-size:18px;font-weight:700;}
     </style>
   </head>
   <body>
@@ -184,6 +194,37 @@
         <span class="blob" aria-hidden="true"></span>
         <span class="blob2" aria-hidden="true"></span>
         <span class="shadow-pad" aria-hidden="true"></span>
+      </div>
+    </section>
+
+    <!-- popular drinks -->
+    <section class="popular">
+      <div class="mocktails">
+        <h2>Popular Mocktails</h2>
+        <div class="popular-grid">
+          <div class="drink-card">
+            <img src="images/berryblaze.png" alt="Berry Bliss mocktail" loading="lazy" />
+            <h3>Berry Bliss</h3>
+          </div>
+          <div class="drink-card">
+            <img src="images/mangowave.png" alt="Mango Wave mocktail" loading="lazy" />
+            <h3>Mango Wave</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="cocktails">
+        <h2>Popular Cocktails</h2>
+        <div class="popular-grid">
+          <div class="drink-card">
+            <img src="images/Okavango.webp" alt="Okavango Ripple cocktail" loading="lazy" />
+            <h3>Okavango Ripple</h3>
+          </div>
+          <div class="drink-card">
+            <img src="images/StrawberryD.webp" alt="Strawberry Daiquiri cocktail" loading="lazy" />
+            <h3>Strawberry Daiquiri</h3>
+          </div>
+        </div>
       </div>
     </section>
 
