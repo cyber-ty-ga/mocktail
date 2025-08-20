@@ -84,6 +84,24 @@
       background:radial-gradient(ellipse at center, rgba(0,0,0,.22), rgba(0,0,0,0) 70%);
       filter:blur(6px)
     }
+    /* contact section */
+    .contact-wrap{max-width:1100px;margin:0 auto;padding:44px 24px 8px;text-align:center;}
+    .contact-grid{max-width:1100px;margin:34px auto 24px;padding:0 24px;display:grid;grid-template-columns:repeat(3,1fr);gap:28px;text-align:center;}
+    @media (max-width:900px){ .contact-grid{grid-template-columns:1fr} }
+    .contact-card{background:var(--card);border:1px solid var(--ring);border-radius:18px;padding:26px 18px 22px;box-shadow:0 14px 30px rgba(2,8,23,.04);}
+    .contact-icon{width:62px;height:62px;margin:0 auto 14px;border-radius:50%;display:grid;place-items:center;color:#0b1323;}
+    .contact-icon.whatsapp{background:#2dd36f}
+    .contact-icon.instagram{background:#ff7aa0}
+    .contact-icon.mail{background:#4a90e2}
+    .contact-icon svg{width:28px;height:28px;stroke:#0b1323}
+    .contact-card h3{margin:4px 0 6px;font-size:18px;font-weight:800;color:var(--ink)}
+    .contact-card p{margin:0 0 8px;color:#526077}
+    .contact-card a{color:var(--blue);text-decoration:none;font-weight:600}
+    .contact-divider{max-width:1100px;height:1px;background:var(--ring);margin:34px auto}
+    .contact-brandline{max-width:1100px;margin:8px auto 26px;padding:0 24px;text-align:center;color:#64748b}
+    .contact-brandline .mini{display:inline-flex;align-items:center;gap:10px;color:var(--ink);font-weight:700}
+    .contact-brandline .mini .dot{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#ff6a6a,#ffa56b);display:inline-block;box-shadow:0 6px 18px rgba(255,106,106,.35)}
+    .contact-brandline .hours{margin-top:10px;font-size:13px;color:#94a3b8}
   </style>
 </head>
 <body>
@@ -103,8 +121,7 @@
     <nav class="nav__links">
       <a href="flavors.html">Flavors</a>
       <a href="howitworks.html">How It Works</a>
-      <a class="active" href="About.html">About Us</a>
-      <a href="contact.html">Contact</a>
+      <a class="active" href="about.html">About & Contact</a>
     </nav>
   </div>
 </header>
@@ -151,6 +168,61 @@
     <span class="blobBR" aria-hidden="true"></span>
     <span class="shadow-pad" aria-hidden="true"></span>
   </div>
+</section>
+
+<section class="contact-wrap">
+  <h2 class="title">Get In Touch</h2>
+  <p class="lead">Have questions or want to place a custom order? We would love to hear from you.</p>
+</section>
+
+<section class="contact-grid">
+  <div class="contact-card">
+    <div class="contact-icon whatsapp" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M16.2 13.6c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.1-.2.2-.7.9-.8 1-.1.1-.3.2-.6.1-.3-.1-1.4-.5-2.7-1.7-1-1-1.7-2.2-1.9-2.5-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.4.1-.1.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.7-1.7-.9-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5 4.5.7.3 1.3.6 1.7.7.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.3.2-.6.2-1.2.1-1.3-.1-.1-.3-.1-.6-.2z" fill="#0b1323"/>
+        <path d="M20.5 12a8.5 8.5 0 1 1-17 0 8.5 8.5 0 0 1 17 0z" stroke="#0b1323" stroke-width="2"/>
+      </svg>
+    </div>
+    <h3>WhatsApp</h3>
+    <p>Quick orders and questions</p>
+    <a href="https://wa.me/2671234567">+267 123 4567</a>
+  </div>
+
+  <div class="contact-card">
+    <div class="contact-icon instagram" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none">
+        <rect x="3" y="3" width="18" height="18" rx="5" stroke="#0b1323" stroke-width="2"/>
+        <circle cx="12" cy="12" r="4" stroke="#0b1323" stroke-width="2"/>
+        <circle cx="17.5" cy="6.5" r="1.5" fill="#0b1323"/>
+      </svg>
+    </div>
+    <h3>Instagram</h3>
+    <p>Follow our daily specials</p>
+    <a href="https://instagram.com/Nexusmocktails">@Nexusmocktails</a>
+  </div>
+
+  <div class="contact-card">
+    <div class="contact-icon mail" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none">
+        <rect x="3" y="5" width="18" height="14" rx="2" stroke="#0b1323" stroke-width="2"/>
+        <path d="M3 7l9 6 9-6" stroke="#0b1323" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h3>Email</h3>
+    <p>Bulk orders and partnerships</p>
+    <a href="mailto:hello@Nexusmocktails.bw">hello@Nexusmocktails.bw</a>
+  </div>
+</section>
+
+<div class="contact-divider"></div>
+
+<section class="contact-brandline">
+  <div class="mini">
+    <span class="dot" aria-hidden="true"></span>
+    <span>Campus Mocktails</span>
+  </div>
+  <p>Made with love for students © 2024 Campus Mocktails All rights reserved</p>
+  <p class="hours">Operating hours Mon to Fri 10AM to 8PM Weekends 12PM to 6PM</p>
 </section>
 
 </body>
