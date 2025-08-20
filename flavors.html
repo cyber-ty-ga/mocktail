@@ -3,6 +3,389 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nexus Mocktails — Flavors</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* floating checkout button */
+.cart-fab{
+  position:fixed; right:20px; bottom:20px;
+  display:inline-flex; align-items:center; gap:10px;
+  padding:12px 18px; border-radius:999px;
+  background:linear-gradient(90deg,#ff6a8c,#ffa55b);
+  color:#fff; text-decoration:none; font-weight:800;
+  box-shadow:0 14px 28px rgba(255,122,122,.28);
+  transition:transform .08s ease, box-shadow .2s ease;
+  z-index:50;
+}
+.cart-fab:hover{ transform:translateY(-1px); box-shadow:0 18px 34px rgba(255,122,122,.32) }
+.cart-fab .badge{
+  min-width:22px; height:22px; border-radius:999px;
+  display:inline-grid; place-items:center; background:#0f172a; color:#fff; font-size:12px; font-weight:800;
+}
+.cart-fab.disabled{ opacity:.5; pointer-events:none }
+
+    :root{
+      --pink:#ff4f70;
+      --yellow:#ffd93b;
+      --blue:#4a90e2;
+      --ink:#0f172a;
+      --text:#1e293b;
+      --muted:#64748b;
+      --card:#ffffff;
+      --bg:#ffffff;
+      --ring:#eef2f7;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{
+      font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--text);
+      background:var(--bg);
+    }
+
+    /* nav */
+    .nav{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--ring);z-index:10}
+    .nav__inner{
+      max-width:1200px;margin:0 auto;padding:18px 24px;
+      display:flex;align-items:center;justify-content:space-between;
+    }
+    .brand{display:flex;align-items:center;gap:12px;font-weight:700;color:var(--ink);text-decoration:none}
+    .brand__logo{
+      width:36px;height:36px;border-radius:50%;
+      background:linear-gradient(135deg,#ff6a6a,#ffa56b);
+      display:grid;place-items:center;color:#fff;
+      box-shadow:0 6px 20px rgba(255,106,106,.35);
+    }
+    .brand__logo svg{width:18px;height:18px}
+    .nav__links{display:flex;gap:36px}
+    .nav__links a{
+      text-decoration:none;color:var(--muted);font-weight:600
+    }
+    .nav__links a.active{color:var(--ink)}
+
+    /* page header */
+    .wrap{max-width:1200px;margin:0 auto;padding:56px 24px 28px}
+    .title{
+      margin:0 0 8px;font-size:40px;line-height:1.15;font-weight:800;letter-spacing:.2px
+    }
+    .title .pink{color:var(--pink)}
+    .title .yellow{color:var(--yellow)}
+    .lead{color:#526077;font-size:18px;line-height:1.8;margin:0}
+
+    /* grid */
+    .grid{
+      max-width:1200px;margin:24px auto 80px;padding:0 24px;
+      display:grid;grid-template-columns:repeat(3,1fr);gap:24px
+    }
+    @media (max-width:1024px){ .grid{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:640px){ .grid{grid-template-columns:1fr} }
+
+    .card{
+      background:var(--card);border:1px solid var(--ring);border-radius:20px;overflow:hidden;
+      box-shadow:0 10px 24px rgba(2,8,23,.08);
+      display:flex;flex-direction:column
+    }
+    .card__img{
+      width:100%;aspect-ratio:4/3;object-fit:cover;display:block
+    }
+    .card__body{padding:18px 18px 16px}
+    .card__title{margin:0 0 6px;font-size:20px;font-weight:800;color:var(--ink)}
+    .badge{
+      display:inline-block;margin-bottom:10px;padding:6px 10px;border-radius:999px;
+      font-weight:700;font-size:12px;color:#fff;background:linear-gradient(90deg,#ff6a8c,#ffa55b)
+    }
+    .card__text{margin:0 0 14px;color:#526077;line-height:1.7}
+    .card__row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .price{font-weight:800;color:var(--ink)}
+    .btn{
+      display:inline-flex;align-items:center;gap:10px;
+      background:linear-gradient(90deg,#ff6a8c,#ffa55b);
+      color:#fff;text-decoration:none;font-weight:700;font-size:14px;
+      padding:10px 16px;border-radius:999px;
+      box-shadow:0 12px 26px rgba(255,122,122,.28);
+      transition:transform .08s ease, box-shadow .2s ease;
+    }
+    .btn:hover{transform:translateY(-1px);box-shadow:0 16px 30px rgba(255,122,122,.32)}
+    .btn svg{width:14px;height:14px}
+
+    /* footer note */
+    .note{max-width:1200px;margin:0 auto 56px;padding:0 24px;color:#708096}
+
+    /* tiny toast */
+    .toast{
+      position:fixed;left:50%;bottom:22px;transform:translateX(-50%);
+      background:#0f172a;color:#fff;padding:10px 14px;border-radius:999px;
+      box-shadow:0 10px 24px rgba(2,8,23,.25);font-weight:700;font-size:14px;
+      opacity:0;pointer-events:none;transition:opacity .2s ease, transform .2s ease;
+    }
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(-4px)}
+  </style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav__inner">
+    <a class="brand" href="index.html">
+      <div class="brand__logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M6 14c4-7 8-7 12-6-2 4-2 8-6 12-1 1-3 1-6 0 0-3 0-5 0-6z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M9 15l1.5 1.5" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span>Nexus Mocktails</span>
+    </a>
+
+    <nav class="nav__links">
+      <a href="flavors.html" class="active">Flavors</a>
+      <a href="howitworks.html">How It Works</a>
+      <a href="about.html">About & Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="wrap">
+  <h1 class="title">
+    Explore our <span class="pink">Fresh</span> <span class="yellow">Flavors</span>
+  </h1>
+  <p class="lead">Pick a favorite and enjoy a chilled moment</p>
+</section>
+
+<section class="grid">
+  <!-- Card 1 -->
+  <article class="card">
+    <picture>
+      <source type="image/webp" srcset="images/mocktail.webp" />
+      <img class="card__img" src="images/mocktail.png" alt="Orange sunrise mocktail" loading="lazy" decoding="async" />
+    </picture>
+    <div class="card__body">
+      <span class="badge">Bestseller</span>
+      <h3 class="card__title">Citrus Sunrise</h3>
+      <p class="card__text">Orange and pineapple with a mint finish</p>
+      <div class="card__row">
+        <span class="price">P32</span>
+        <a class="btn add" href="#"
+           data-name="Citrus Sunrise"
+           data-price="32"
+           data-note="Orange and pineapple with a mint finish"
+           data-emoji="🍊">
+          Add
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <!-- Card 2 -->
+  <article class="card">
+    <picture>
+      <source type="image/webp" srcset="images/strawberrylime.webp" />
+      <img class="card__img" src="images/strawberrylime.png" alt="Strawberry lime duo" loading="lazy" decoding="async" />
+    </picture>
+    <div class="card__body">
+      <span class="badge">New</span>
+      <h3 class="card__title">Strawberry Lime</h3>
+      <p class="card__text">Sweet strawberry with zesty lime</p>
+      <div class="card__row">
+        <span class="price">P34</span>
+        <a class="btn add" href="#"
+           data-name="Strawberry Lime"
+           data-price="34"
+           data-note="Sweet strawberry with zesty lime"
+           data-emoji="🍓">
+          Add
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <!-- Card 3 -->
+  <article class="card">
+    <picture>
+      <source type="image/webp" srcset="images/mojitotwist.webp" />
+      <img class="card__img" src="images/mojitotwist.png" alt="Green mojito mocktail" loading="lazy" decoding="async" />
+    </picture>
+    <div class="card__body">
+      <span class="badge">Cool</span>
+      <h3 class="card__title">Mojito Twist</h3>
+      <p class="card__text">Lime and mint with a cool sparkle</p>
+      <div class="card__row">
+        <span class="price">P30</span>
+        <a class="btn add" href="#"
+           data-name="Mojito Twist"
+           data-price="30"
+           data-note="Lime and mint with a cool sparkle"
+           data-emoji="🍃">
+          Add
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <!-- Card 4 -->
+  <article class="card">
+    <picture>
+      <source type="image/webp" srcset="images/berryblaze.webp" />
+      <img class="card__img" src="images/berryblaze.png" alt="Berry mocktail" loading="lazy" decoding="async" />
+    </picture>
+    <div class="card__body">
+      <span class="badge">Sweet</span>
+      <h3 class="card__title">Berry Bliss</h3>
+      <p class="card__text">Mixed berries with a soft fizz</p>
+      <div class="card__row">
+        <span class="price">P33</span>
+        <a class="btn add" href="#"
+           data-name="Berry Bliss"
+           data-price="33"
+           data-note="Mixed berries with a soft fizz"
+           data-emoji="🫐">
+          Add
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <!-- Card 5 -->
+  <article class="card">
+    <picture>
+      <source type="image/webp" srcset="images/mangowave.webp" />
+      <img class="card__img" src="images/mangowave.png" alt="Tropical mocktail" loading="lazy" decoding="async" />
+    </picture>
+    <div class="card__body">
+      <span class="badge">Tropical</span>
+      <h3 class="card__title">Mango Wave</h3>
+      <p class="card__text">Mango and passion fruit with chill vibes</p>
+      <div class="card__row">
+        <span class="price">P35</span>
+        <a class="btn add" href="#"
+           data-name="Mango Wave"
+           data-price="35"
+           data-note="Mango and passion fruit with chill vibes"
+           data-emoji="🥭">
+          Add
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <!-- Card 6 -->
+  <article class="card">
+    <picture>
+      <source type="image/webp" srcset="images/pearfizz.webp" />
+      <img class="card__img" src="images/pearfizz.png" alt="Pear fizz mocktail" loading="lazy" decoding="async" />
+    </picture>
+    <div class="card__body">
+      <span class="badge">Light</span>
+      <h3 class="card__title">Pear Fizz</h3>
+      <p class="card__text">Crisp pear with gentle sparkle</p>
+      <div class="card__row">
+        <span class="price">P31</span>
+        <a class="btn add" href="#"
+           data-name="Pear Fizz"
+           data-price="31"
+           data-note="Crisp pear with gentle sparkle"
+           data-emoji="🍐">
+          Add
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </article>
+</section>
+
+<p class="note wrap">Prices are for demo only</p>
+
+<!-- tiny toast -->
+<div id="toast" class="toast" role="status" aria-live="polite">Added to cart</div>
+
+<script>
+  const CART_KEY = 'nm_cart';
+  const getCart  = () => JSON.parse(localStorage.getItem(CART_KEY) || '[]');
+  const setCart  = c  => localStorage.setItem(CART_KEY, JSON.stringify(c));
+
+  function addToCart(item){
+    const cart = getCart();
+    const existing = cart.find(x => x.name === item.name);
+    if(existing){ existing.qty += 1; }
+    else{ cart.push({ ...item, qty: 1 }); }
+    setCart(cart);
+  }
+
+  function flashToast(msg){
+    const t = document.getElementById('toast');
+    t.textContent = msg || 'Added to cart';
+    t.classList.add('show');
+    setTimeout(()=> t.classList.remove('show'), 900);
+  }
+
+  document.querySelectorAll('.add').forEach(btn=>{
+    btn.addEventListener('click', e=>{
+      e.preventDefault();
+      addToCart({
+        name:  btn.dataset.name,
+        price: Number(btn.dataset.price),
+        note:  btn.dataset.note || '',
+        emoji: btn.dataset.emoji || '🥤'
+      });
+      flashToast(`${btn.dataset.name} added`);
+      const old = btn.textContent;
+      btn.textContent = 'Added';
+      setTimeout(()=> btn.textContent = old, 700);
+    });
+  });
+</script>
+<script>
+  function getCartCount(){
+    try{
+      const cart = JSON.parse(localStorage.getItem('nm_cart') || '[]');
+      return cart.reduce((s,it)=> s + Number(it.qty || 1), 0);
+    }catch(e){ return 0; }
+  }
+  function updateFab(){
+    const n = getCartCount();
+    const fab = document.getElementById('cartFab');
+    const badge = document.getElementById('fabCount');
+    if(!fab || !badge) return;
+    badge.textContent = n;
+    if(n > 0){
+      fab.classList.remove('disabled');
+      fab.setAttribute('aria-disabled','false');
+    }else{
+      fab.classList.add('disabled');
+      fab.setAttribute('aria-disabled','true');
+    }
+  }
+
+  // update when items are added on this page
+  document.querySelectorAll('.add').forEach(b=>{
+    b.addEventListener('click', ()=> setTimeout(updateFab, 0));
+  });
+
+  // update if cart changes in another tab
+  window.addEventListener('storage', e=>{
+    if(e.key === 'nm_cart') updateFab();
+  });
+
+  // first paint
+  updateFab();
+</script>
+
+<a id="cartFab" class="cart-fab disabled" href="order.html" aria-disabled="true">
+  <span class="badge" id="fabCount">0</span>
+  Checkout
+</a>
+
+</body>
+</html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Nexus Mocktails | Flavors</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
   <style>
@@ -455,4 +838,3 @@
 
 </body>
 </html>
-
