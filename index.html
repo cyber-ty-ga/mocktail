@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nexus Mocktails</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      :root{
+        --pink:#ff4f70;
+        --yellow:#ffd93b;
+        --blue:#4a90e2;
+        --text:#1e293b;
+        --muted:#6b7280;
+        --bg:#ffffff;
+      }
+      *{box-sizing:border-box}
+      html,body{margin:0}
+      body{
+        font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+        color:var(--text);
+        background:var(--bg);
+      }
+
+      /* top nav */
+      .nav{
+        position:sticky; top:0;
+        background:#fff;
+        border-bottom:1px solid #eef2f7;
+        z-index:10;
+      }
+      .nav__inner{
+        max-width:1200px; margin:0 auto;
+        display:flex; align-items:center; justify-content:space-between;
+        padding:18px 24px;
+      }
+      .brand{display:flex; align-items:center; gap:12px; font-weight:700; color:#0f172a}
+      .brand__logo{
+        width:36px; height:36px; border-radius:50%;
+        background:linear-gradient(135deg,#ff6a6a,#ffa56b);
+        display:grid; place-items:center; color:#fff;
+        box-shadow:0 6px 20px rgba(255,106,106,.35);
+      }
+      .brand__logo svg{width:18px;height:18px}
+      .nav__links{display:flex; gap:36px}
+      .nav__links a{
+        text-decoration:none; color:#64748b; font-weight:600;
+      }
+      .nav__links a:hover{color:#0f172a}
+
+      /* hero */
+      .hero{
+        max-width:1200px; margin:0 auto;
+        padding:64px 24px 96px;
+        display:grid; grid-template-columns:1.05fr .95fr; gap:36px;
+        align-items:center;
+      }
+      @media (max-width:980px){
+        .hero{grid-template-columns:1fr; padding:48px 20px 72px}
+      }
+
+      .title{
+        font-weight:800; line-height:1.1; letter-spacing:.2px;
+        font-size:56px; margin:0 0 18px;
+      }
+      @media (max-width:520px){ .title{font-size:40px} }
+      .title .pink{color:var(--pink)}
+      .title .yellow{color:var(--yellow)}
+      .title .blue{color:var(--blue)}
+
+      .lead{
+        max-width:560px;
+        color:#526077;
+        font-size:18px; line-height:1.8;
+        margin:0 0 28px;
+      }
+
+      .cta{
+        display:inline-flex; align-items:center; gap:10px;
+        background:linear-gradient(90deg,#ff6a8c,#ffa55b);
+        color:#fff; text-decoration:none; font-weight:700; font-size:16px;
+        padding:14px 22px; border-radius:999px;
+        box-shadow:0 14px 28px rgba(255,122,122,.28);
+        transition:transform .08s ease, box-shadow .2s ease;
+      }
+      .cta:hover{transform:translateY(-1px); box-shadow:0 18px 34px rgba(255,122,122,.32)}
+      .cta svg{width:16px;height:16px}
+
+      .media{
+        position:relative;
+        
+      }
+      .photo{
+        width:100%; aspect-ratio:16/11; object-fit:cover;
+        border-radius:22px;
+        box-shadow:0 18px 40px rgba(2,8,23,.18);
+        display:block;
+      }
+      .blob{
+  position:absolute; width:82px; height:82px; border-radius:50%;
+  background:#f6de73; right:-18px; top:-18px; opacity:.9;
+  filter:blur(.2px);
+
+  /* bounce */
+  animation:bounceY 2.9s ease-in-out infinite;
+  transform-origin:center;
+  will-change:transform;
+}
+
+@keyframes bounceY{
+  0%   { transform:translateY(0) scale(1) }
+  35%  { transform:translateY(-10px) scale(1.03) }
+  70%  { transform:translateY(0) scale(1) }
+  100% { transform:translateY(-4px) scale(1.01) }
+}
+
+/* respect users who prefer less motion */
+@media (prefers-reduced-motion: reduce){
+  .blob{ animation:none }
+}
+
+      .blob2{
+        position:absolute; width:72px; height:72px; border-radius:50%;
+        background:#7bd8a7; left:-10px; bottom:-14px; opacity:.9;
+        filter:blur(.2px);
+      }
+      .shadow-pad{
+        position:absolute; inset:auto 18px -26px 18px;
+        height:28px; border-radius:999px;
+        background:radial-gradient(ellipse at center, rgba(0,0,0,.24), rgba(0,0,0,0) 70%);
+        filter:blur(6px);
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- nav -->
+    <header class="nav">
+      <div class="nav__inner">
+        <div class="brand">
+          <div class="brand__logo" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M6 14c4-7 8-7 12-6-2 4-2 8-6 12-1 1-3 1-6 0 0-3 0-5 0-6z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M9 15l1.5 1.5" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <span>Nexus Mocktails</span>
+        </div>
+
+<nav class="nav__links">
+  <a href="flavors.html">Flavors</a>
+  <a href="howitworks.html">How It Works</a>
+  <a href="About.html">About Us</a>
+  <a href="contact.html">Contact</a>
+</nav>
+      </div>
+    </header>
+
+    <!-- hero -->
+    <section class="hero">
+      <div class="copy">
+        <h1 class="title">
+          <span class="pink">Fresh</span>
+          <span class="yellow">Mocktails</span><br />
+          <span class="blue">for Students</span>
+        </h1>
+
+        <p class="lead">
+          Refreshing, handcrafted mocktails made with love, for students. Perfect for study breaks, celebrations, or just because, nje!
+        </p>
+
+        <a class="cta" href="order.html">Order Now</a>
+
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="media">
+        <img class="photo" src="images/mocktails.png" alt="Colorful mocktail drink" width="200">
+        <span class="blob" aria-hidden="true"></span>
+        <span class="blob2" aria-hidden="true"></span>
+        <span class="shadow-pad" aria-hidden="true"></span>
+      </div>
+    </section>
+
+  </body>
+</html>

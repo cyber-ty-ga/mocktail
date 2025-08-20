@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nexus Mocktails | Review</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --ink:#0f172a; --text:#1e293b; --muted:#64748b; --ring:#eef2f7;
+      --card:#ffffff; --bg:#f7f9fc; --pink:#ff4f70; --shadow:0 18px 40px rgba(2,8,23,.10)
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);background:var(--bg)}
+
+    .nav{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--ring);z-index:10}
+    .nav__inner{max-width:1100px;margin:0 auto;padding:18px 24px;display:flex;align-items:center;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:700;color:var(--ink);text-decoration:none}
+    .brand__logo{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#ff6a6a,#ffa56b);display:grid;place-items:center;color:#fff;box-shadow:0 6px 20px rgba(255,106,106,.35)}
+    .brand__logo svg{width:18px;height:18px}
+    .nav__links{display:flex;gap:28px}
+    .nav__links a{text-decoration:none;color:var(--muted);font-weight:600}
+
+    .header{max-width:900px;margin:26px auto 0;text-align:center;padding:0 20px}
+    .header h1{margin:0 0 6px;font-size:36px;font-weight:800;color:var(--ink)}
+    .header p{margin:0;color:#7b8798}
+
+    .wrap{max-width:1000px;margin:24px auto 90px;padding:0 20px}
+    .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:24px}
+    @media (max-width:960px){ .grid{grid-template-columns:1fr} }
+
+    .card{background:#fff;border:1px solid var(--ring);border-radius:20px;box-shadow:var(--shadow);padding:18px}
+    .card h3{margin:0 0 10px;font-size:18px;font-weight:800;color:#0f172a}
+
+    .items{list-style:none;margin:0;padding:0}
+    .items li{display:grid;grid-template-columns:1fr auto;gap:10px;padding:10px 0;border-bottom:1px dashed var(--ring)}
+    .items li:last-child{border-bottom:0}
+
+    .pair{display:grid;grid-template-columns:160px 1fr;gap:10px;margin:8px 0}
+    .key{color:#6b7280}
+    .val{color:#0f172a;font-weight:700}
+
+    .summary .row{display:flex;align-items:center;justify-content:space-between;margin:8px 0}
+    .total{font-size:20px;font-weight:800;color:#ef4444}
+
+    .actions{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 22px;border-radius:999px;font-weight:800;text-decoration:none;cursor:pointer}
+    .btn.primary{background:linear-gradient(90deg,#ff6a8c,#ffa55b);color:#fff;box-shadow:0 14px 28px rgba(255,122,122,.28)}
+    .btn.ghost{background:#fff;border:1px solid var(--ring);color:#0f172a}
+
+    .toast{position:fixed;inset:auto 20px 20px auto;min-width:260px;padding:14px 16px;border-radius:14px;background:#111827;color:#fff;box-shadow:0 10px 24px rgba(2,8,23,.22);display:none;z-index:50}
+
+    /* inline edit panel if details missing */
+    .edit{margin-top:10px;border:1px solid var(--ring);border-radius:14px;padding:12px;background:#fff}
+    .field{margin-bottom:10px}
+    .label{display:block;margin:0 0 6px;font-weight:700;color:#0f172a}
+    .input,.textarea,select{
+      width:100%;padding:12px 14px;border:1px solid var(--ring);border-radius:12px;outline:0;font:inherit;color:#0f172a;background:#fff
+    }
+    .save{display:inline-flex;align-items:center;justify-content:center;padding:10px 16px;border-radius:999px;background:#0f172a;color:#fff;font-weight:800;cursor:pointer}
+  </style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav__inner">
+    <a class="brand" href="index.html">
+      <div class="brand__logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M6 14c4-7 8-7 12-6-2 4-2 8-6 12-1 1-3 1-6 0 0-3 0-5 0-6z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M9 15l1.5 1.5" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span>Nexus Mocktails</span>
+    </a>
+    <nav class="nav__links">
+      <a href="flavors.html">Flavors</a>
+      <a href="order.html">Order</a>
+      <a href="payment.html">Payment</a>
+    </nav>
+  </div>
+</header>
+
+<div class="header">
+  <h1>Review and submit</h1>
+  <p>Please check your details then finish</p>
+</div>
+
+<div class="wrap">
+  <div class="grid">
+    <!-- left items -->
+    <div class="card">
+      <h3>Items</h3>
+      <ul class="items" id="itemList"></ul>
+    </div>
+
+    <!-- right details and totals -->
+    <div class="card summary">
+      <h3>Your details</h3>
+
+      <div class="pair"><div class="key">Full name</div><div class="val" id="vName">Not set</div></div>
+      <div class="pair"><div class="key">Phone</div><div class="val" id="vPhone">Not set</div></div>
+      <div class="pair"><div class="key">Delivery</div><div class="val" id="vShip">Not set</div></div>
+      <div class="pair"><div class="key">Payment</div><div class="val" id="vPay">Not set</div></div>
+      <div class="pair"><div class="key">Notes</div><div class="val" id="vNotes">None</div></div>
+
+      <div class="row"><span>Subtotal</span><strong id="vSub">P0</strong></div>
+      <div class="row"><span>Delivery fee</span><strong id="vDel">P0</strong></div>
+      <div class="row"><span>Total</span><strong class="total" id="vTot">P0</strong></div>
+
+      <div class="actions">
+        <a class="btn ghost" href="payment.html">Back to edit</a>
+        <button id="submitFinal" class="btn primary" type="button">I have confirmed details, submit</button>
+      </div>
+
+      <!-- inline edit shown only if needed -->
+      <div id="editBox" class="edit" hidden>
+        <div class="field">
+          <label class="label" for="fullName">Full name</label>
+          <input class="input" id="fullName" placeholder="Enter your full name" />
+        </div>
+        <div class="field">
+          <label class="label" for="phone">Phone number +267</label>
+          <input class="input" id="phone" placeholder="example 7XXXXXX" />
+        </div>
+        <div class="field">
+          <label class="label" for="ship">Delivery choice</label>
+          <select id="ship" class="input">
+            <option value="pickup">Off campus pickup Free at BIUST Stop</option>
+            <option value="dorm">Dorm delivery P5 within campus grounds</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="label" for="pay">Payment method</label>
+          <select id="pay" class="input">
+            <option value="">Select one</option>
+            <option value="zaka">My Zaka</option>
+            <option value="orange">Orange Money</option>
+            <option value="p2c">Pay to Cell</option>
+            <option value="cod">Cash on Delivery</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="label" for="notes">Order notes optional</label>
+          <textarea id="notes" class="textarea" placeholder="Any special instructions"></textarea>
+        </div>
+        <button id="saveInline" class="save" type="button">Save details</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">Order sent. Thank you</div>
+
+<script>
+  const CART_KEY = 'nm_cart';
+  const CHK_KEY  = 'nm_checkout';
+  const SUB_KEY  = 'cm_subtotal';
+
+  const cart = JSON.parse(localStorage.getItem(CART_KEY) || '[]');
+  const fmt = n => 'P' + Number(n).toFixed(0);
+  const shipText = v => v === 'dorm' ? 'Dorm delivery P5 within campus grounds' : 'Off campus pickup Free at BIUST Stop';
+  const payText  = v => ({zaka:'My Zaka',orange:'Orange Money',p2c:'Pay to Cell',cod:'Cash on Delivery'})[v] || 'Not set';
+
+  // read or build details
+  let chk = JSON.parse(localStorage.getItem(CHK_KEY) || 'null');
+
+  // try to hydrate from URL if present
+  const q = new URLSearchParams(location.search);
+  if(!chk && (q.get('fullName') || q.get('phone'))){
+    chk = {
+      fullName: q.get('fullName') || '',
+      phone: q.get('phone') || '',
+      notes: q.get('notes') || '',
+      ship: q.get('ship') || 'pickup',
+      pay: q.get('pay') || '',
+      subtotal: Number(q.get('subtotal') || 0),
+      delivery: Number(q.get('delivery') || 0)
+    };
+    localStorage.setItem(CHK_KEY, JSON.stringify(chk));
+  }
+
+  // compute from cart if needed
+  const subFromCart = cart.reduce((s,it)=> s + Number(it.price) * Number(it.qty || 1), 0);
+  if(!chk){
+    chk = { fullName:'', phone:'', notes:'', ship:'pickup', pay:'', subtotal: subFromCart, delivery: 0 };
+  }
+  if(!chk.subtotal || chk.subtotal < 1) chk.subtotal = subFromCart;
+  if(typeof chk.delivery !== 'number') chk.delivery = chk.ship === 'dorm' ? 5 : 0;
+
+  // render items
+  const list = document.getElementById('itemList');
+  function renderItems(){
+    list.innerHTML = '';
+    if(cart.length === 0){
+      const li = document.createElement('li'); li.textContent = 'Your cart is empty'; list.appendChild(li);
+      return;
+    }
+    cart.forEach(it=>{
+      const li = document.createElement('li');
+      const left = document.createElement('div'); left.textContent = `${it.qty || 1} x ${it.name}`;
+      const right = document.createElement('div'); right.textContent = fmt(Number(it.price) * Number(it.qty || 1));
+      li.appendChild(left); li.appendChild(right); list.appendChild(li);
+    });
+  }
+
+  // fill details
+  function fillDetails(){
+    document.getElementById('vName').textContent  = chk.fullName || 'Not set';
+    document.getElementById('vPhone').textContent = chk.phone || 'Not set';
+    document.getElementById('vNotes').textContent = chk.notes ? chk.notes : 'None';
+    document.getElementById('vShip').textContent  = shipText(chk.ship);
+    document.getElementById('vPay').textContent   = payText(chk.pay);
+    document.getElementById('vSub').textContent   = fmt(chk.subtotal || 0);
+    document.getElementById('vDel').textContent   = fmt(chk.delivery || 0);
+    document.getElementById('vTot').textContent   = fmt((chk.subtotal || 0) + (chk.delivery || 0));
+  }
+
+  // show inline editor when missing key fields
+  const editBox = document.getElementById('editBox');
+  const needsEdit = !chk.fullName || !chk.phone || !chk.pay;
+  if(needsEdit){
+    editBox.hidden = false;
+    document.getElementById('fullName').value = chk.fullName || '';
+    document.getElementById('phone').value    = chk.phone || '';
+    document.getElementById('ship').value     = chk.ship || 'pickup';
+    document.getElementById('pay').value      = chk.pay || '';
+    document.getElementById('notes').value    = chk.notes || '';
+  }
+
+  document.getElementById('saveInline').addEventListener('click', ()=>{
+    const fullName = document.getElementById('fullName').value.trim();
+    const phone    = document.getElementById('phone').value.trim();
+    const ship     = document.getElementById('ship').value;
+    const pay      = document.getElementById('pay').value;
+    const notes    = document.getElementById('notes').value.trim();
+
+    if(fullName.length < 2 || phone.length < 7 || !pay){
+      alert('Please enter name and phone and payment');
+      return;
+    }
+    chk.fullName = fullName;
+    chk.phone    = phone;
+    chk.notes    = notes;
+    chk.ship     = ship;
+    chk.pay      = pay;
+    chk.delivery = ship === 'dorm' ? 5 : 0;
+
+    localStorage.setItem(CHK_KEY, JSON.stringify(chk));
+    editBox.hidden = true;
+    fillDetails();
+    enableSubmitIfReady();
+  });
+
+  function enableSubmitIfReady(){
+    const ok = cart.length > 0 && chk.fullName && chk.phone && chk.pay;
+    document.getElementById('submitFinal').disabled = !ok;
+  }
+
+  // final submit
+  const btn = document.getElementById('submitFinal');
+  btn.addEventListener('click', ()=>{
+    if(btn.disabled) return;
+    btn.disabled = true;
+
+    localStorage.removeItem(CART_KEY);
+    localStorage.removeItem(CHK_KEY);
+    localStorage.removeItem(SUB_KEY);
+
+    const toast = document.getElementById('toast');
+    toast.style.display = 'block';
+    setTimeout(()=>{ toast.style.display = 'none'; location.href = 'index.html'; }, 1200);
+  });
+
+  renderItems();
+  fillDetails();
+  enableSubmitIfReady();
+</script>
+</body>
+</html>

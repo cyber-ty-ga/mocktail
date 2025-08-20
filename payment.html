@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nexus Mocktails | Payment</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --pink:#ff4f70; --yellow:#ffd93b; --blue:#4a90e2; --green:#34d399;
+      --ink:#0f172a; --text:#1e293b; --muted:#64748b; --ring:#eef2f7;
+      --card:#ffffff; --bg:#f7f9fc; --shadow:0 18px 40px rgba(2,8,23,.12)
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);background:var(--bg)}
+
+    .nav{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--ring);z-index:10}
+    .nav__inner{max-width:1200px;margin:0 auto;padding:18px 24px;display:flex;align-items:center;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:700;color:var(--ink);text-decoration:none}
+    .brand__logo{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#ff6a6a,#ffa56b);display:grid;place-items:center;color:#fff;box-shadow:0 6px 20px rgba(255,106,106,.35)}
+    .brand__logo svg{width:18px;height:18px}
+    .nav__links{display:flex;gap:36px}
+    .nav__links a{text-decoration:none;color:var(--muted);font-weight:600}
+
+    .header{max-width:900px;margin:26px auto 0;text-align:center;padding:0 20px}
+    .header h1{margin:0;font-size:36px;font-weight:800;color:var(--ink)}
+    .header p{margin:6px 0 0;color:#7b8798}
+
+    .wrap{max-width:1000px;margin:24px auto 80px;padding:0 20px}
+    .card{background:#fff;border:1px solid var(--ring);border-radius:20px;box-shadow:var(--shadow);padding:18px}
+    .back{display:inline-flex;align-items:center;gap:8px;padding:10px 12px;border-radius:10px;border:1px solid var(--ring);text-decoration:none;color:#334155;background:#fff}
+
+    .card h3{margin:10px 0 0;font-weight:800;color:#111827}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:14px}
+    @media (max-width:900px){ .grid{grid-template-columns:1fr} }
+
+    .field{margin-bottom:12px}
+    .label{display:block;margin:0 0 6px;font-weight:700;color:#0f172a}
+    .input,.textarea{width:100%;padding:12px 14px;border:1px solid var(--ring);border-radius:12px;outline:0;font:inherit;color:#0f172a;background:#fff}
+    .input:focus,.textarea:focus{border-color:#b9c4d6;box-shadow:0 0 0 4px rgba(99,102,241,.08)}
+    .textarea{min-height:90px;resize:vertical}
+
+    .sectionTitle{margin:10px 0 8px;font-weight:800;color:#0f172a}
+
+    .ship{display:grid;gap:10px;margin-bottom:10px}
+    .ship label{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--ring);border-radius:12px;padding:12px;background:#fff;cursor:pointer}
+    .ship .meta{color:#6b7280;font-size:14px}
+
+    .opt{border:1px solid var(--ring);border-radius:14px;padding:12px;display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;background:#fff;transition:border-color .15s ease, box-shadow .15s ease}
+    .opt input{margin-top:4px}
+    .opt.active{border-color:#bfd0ff;box-shadow:0 6px 16px rgba(2,8,23,.06)}
+    .opt h4{margin:0 0 4px;font-size:16px;color:#0f172a}
+    .opt p{margin:0;color:#6b7280;font-size:14px}
+
+    .summary{border:1px solid var(--ring);border-radius:14px;padding:14px;margin-top:14px;background:#fff}
+    .items{margin:0 0 8px;padding:0;list-style:none;color:#334155}
+    .items li{display:flex;justify-content:space-between;gap:10px;margin:6px 0}
+    .row{display:flex;align-items:center;justify-content:space-between;margin:8px 0}
+    .total{font-size:20px;font-weight:800;color:#ef4444}
+
+    .confirm{display:block;width:100%;margin-top:16px;background:linear-gradient(90deg,#ff6a8c,#ffa55b);color:#fff;border:0;padding:14px;border-radius:999px;font-weight:800;font-size:16px;cursor:pointer;box-shadow:0 14px 28px rgba(255,122,122,.28);transition:transform .08s ease, box-shadow .2s ease}
+    .confirm:hover{transform:translateY(-1px);box-shadow:0 18px 34px rgba(255,122,122,.32)}
+    .confirm[disabled]{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+
+    .toast{position:fixed;inset:auto 20px 20px auto;min-width:260px;padding:14px 16px;border-radius:14px;background:#111827;color:#fff;box-shadow:0 10px 24px rgba(2,8,23,.22);display:none;z-index:50}
+  </style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav__inner">
+    <a class="brand" href="index.html">
+      <div class="brand__logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M6 14c4-7 8-7 12-6-2 4-2 8-6 12-1 1-3 1-6 0 0-3 0-5 0-6z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M9 15l1.5 1.5" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span>Nexus Mocktails</span>
+    </a>
+
+    <nav class="nav__links">
+      <a href="flavors.html">Flavors</a>
+      <a href="howitworks.html">How It Works</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<div class="header">
+  <h1>Payment and Contact</h1>
+  <p>Almost there. We just need your details</p>
+</div>
+
+<div class="wrap">
+  <div class="card">
+    <a class="back" href="order.html">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
+        <path d="M15 18l-6-6 6-6" stroke="#0f172a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Back to Cart
+    </a>
+
+    <h3>Payment and Contact Information</h3>
+
+    <div class="grid">
+
+      <!-- left -->
+      <form id="contactForm">
+        <div class="field">
+          <label class="label" for="fullName">Full Name</label>
+          <input class="input" id="fullName" name="fullName" type="text" placeholder="Enter your full name" required />
+        </div>
+
+        <div class="field">
+          <label class="label" for="phone">Phone Number +267</label>
+          <input class="input" id="phone" name="phone" type="tel" placeholder="example 7XXXXXX" required />
+        </div>
+
+        <div class="field">
+          <label class="label" for="notes">Order Notes optional</label>
+          <textarea class="textarea" id="notes" name="notes" placeholder="Any special instructions"></textarea>
+        </div>
+      </form>
+
+      <!-- right -->
+      <div>
+
+        <div class="sectionTitle">Delivery Choice</div>
+        <div class="ship" id="shipGroup">
+          <label>
+            <input type="radio" name="ship" value="pickup" checked />
+            <div>
+              <div>Off campus pickup</div>
+              <div class="meta">Free at BIUST Stop</div>
+            </div>
+          </label>
+          <label>
+            <input type="radio" name="ship" value="dorm" />
+            <div>
+              <div>Dorm delivery</div>
+              <div class="meta">P5 within campus grounds</div>
+            </div>
+          </label>
+        </div>
+
+        <div class="sectionTitle">Payment Method</div>
+
+        <label class="opt"><input type="radio" name="pay" value="zaka">
+          <div>
+            <h4>My Zaka</h4>
+            <p>Payment via My Zaka mobile money</p>
+          </div>
+        </label>
+
+        <label class="opt"><input type="radio" name="pay" value="orange">
+          <div>
+            <h4>Orange Money</h4>
+            <p>Payment via Orange Money wallet</p>
+          </div>
+        </label>
+
+        <label class="opt"><input type="radio" name="pay" value="p2c">
+          <div>
+            <h4>Pay to Cell</h4>
+            <p>Payment via Pay to Cell service</p>
+          </div>
+        </label>
+
+        <label class="opt"><input type="radio" name="pay" value="cod">
+          <div>
+            <h4>Cash on Delivery</h4>
+            <p>Pay with cash when the order is delivered or picked up</p>
+          </div>
+        </label>
+
+        <div class="summary" id="summary">
+          <ul class="items" id="itemsList"></ul>
+          <div class="row"><span>Subtotal</span><strong id="subtotal">P0</strong></div>
+          <div class="row"><span>Delivery Fee</span><strong id="delivery">P0</strong></div>
+          <div class="row"><span>Total</span><strong class="total" id="total">P0</strong></div>
+          <button class="confirm" id="confirmBtn" disabled>Confirm Order</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">Order confirmed. Thank you</div>
+
+<script>
+  // storage keys
+  const CART_KEY = 'nm_cart';
+  const SUB_KEY  = 'cm_subtotal';
+
+  // read cart
+  const cart = JSON.parse(localStorage.getItem(CART_KEY) || '[]');
+
+  // DOM refs
+  const els = {
+    items: document.getElementById('itemsList'),
+    subtotal: document.getElementById('subtotal'),
+    delivery: document.getElementById('delivery'),
+    total: document.getElementById('total'),
+    confirm: document.getElementById('confirmBtn'),
+    toast: document.getElementById('toast'),
+    form: document.getElementById('contactForm')
+  };
+
+  const fmt = n => 'P' + Number(n).toFixed(0);
+
+  // build item list and subtotal
+  function calcSubtotal(){
+    return cart.reduce((s,it)=> s + Number(it.price)*Number(it.qty||1), 0);
+  }
+
+  function renderItems(){
+    els.items.innerHTML = '';
+    if(cart.length === 0){
+      const li = document.createElement('li');
+      li.textContent = 'Your cart is empty';
+      els.items.appendChild(li);
+      return 0;
+    }
+    cart.forEach(it=>{
+      const li = document.createElement('li');
+      const left = document.createElement('span');
+      left.textContent = `${it.qty || 1} x ${it.name}`;
+      const right = document.createElement('span');
+      const line = Number(it.price) * Number(it.qty||1);
+      right.textContent = fmt(line);
+      li.appendChild(left);
+      li.appendChild(right);
+      els.items.appendChild(li);
+    });
+    return calcSubtotal();
+  }
+
+  // track delivery choice
+  let deliveryFee = 0;
+  function bindShipping(){
+    document.querySelectorAll('input[name="ship"]').forEach(r=>{
+      r.addEventListener('change', ()=>{
+        deliveryFee = r.value === 'dorm' ? 5 : 0;
+        updateSummary();
+      });
+    });
+  }
+
+  function updateSummary(){
+    const sub = calcSubtotal();
+    els.subtotal.textContent = fmt(sub);
+    els.delivery.textContent = fmt(deliveryFee);
+    els.total.textContent = fmt(sub + deliveryFee);
+    // share subtotal for back navigation safety
+    localStorage.setItem(SUB_KEY, String(sub));
+    validateForm();
+  }
+
+  // highlight chosen payment card
+  const opts = Array.from(document.querySelectorAll('.opt'));
+  opts.forEach(opt=>{
+    const input = opt.querySelector('input');
+    input.addEventListener('change', ()=>{
+      opts.forEach(o=>o.classList.remove('active'));
+      opt.classList.add('active');
+      validateForm();
+    });
+    opt.addEventListener('click', e=>{
+      if(e.target.tagName !== 'INPUT'){ input.checked = true; input.dispatchEvent(new Event('change')); }
+    });
+  });
+
+  // simple checks
+  ['input','change','keyup'].forEach(evt=> els.form.addEventListener(evt, validateForm));
+  function validateForm(){
+    const nameOk = els.form.fullName.value.trim().length > 1;
+    const phoneOk = els.form.phone.value.trim().length >= 7;
+    const payOk = document.querySelector("input[name='pay']:checked");
+    els.confirm.disabled = !(nameOk && phoneOk && payOk && cart.length > 0);
+  }
+
+// confirm
+els.confirm.addEventListener('click', e=>{
+  e.preventDefault();
+  if (els.confirm.disabled) return;
+
+  const shipSel = document.querySelector("input[name='ship']:checked")?.value || 'pickup';
+  const paySel  = document.querySelector("input[name='pay']:checked")?.value || '';
+
+  const sub = Number(document.getElementById('subtotal').textContent.replace(/^P/,'') || 0);
+  const del = Number(document.getElementById('delivery').textContent.replace(/^P/,'') || 0);
+
+  const checkout = {
+    fullName: els.form.fullName.value.trim(),
+    phone: els.form.phone.value.trim(),
+    notes: els.form.notes.value.trim(),
+    ship: shipSel,
+    pay:  paySel,
+    subtotal: sub,
+    delivery: del
+  };
+  localStorage.setItem('nm_checkout', JSON.stringify(checkout));
+
+  location.href = 'review.html';
+});
+
+
+  function showToast(){
+    els.toast.style.display = 'block';
+    setTimeout(()=> els.toast.style.display = 'none', 1200);
+  }
+
+  // first paint
+  renderItems();
+  bindShipping();
+  updateSummary();
+</script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nexus Mocktails — How It Works</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --pink:#ff4f70;
+      --yellow:#ffd93b;
+      --blue:#4a90e2;
+      --green:#2ecc71;
+      --ink:#0f172a;
+      --text:#1e293b;
+      --muted:#64748b;
+      --ring:#eef2f7;
+      --card:#ffffff;
+      --bg:#ffffff;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{
+      font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--text);
+      background:var(--bg);
+    }
+
+    /* nav */
+    .nav{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--ring);z-index:10}
+    .nav__inner{
+      max-width:1200px;margin:0 auto;padding:18px 24px;
+      display:flex;align-items:center;justify-content:space-between;
+    }
+    .brand{display:flex;align-items:center;gap:12px;font-weight:700;color:var(--ink);text-decoration:none}
+    .brand__logo{
+      width:36px;height:36px;border-radius:50%;
+      background:linear-gradient(135deg,#ff6a6a,#ffa56b);
+      display:grid;place-items:center;color:#fff;
+      box-shadow:0 6px 20px rgba(255,106,106,.35);
+    }
+    .brand__logo svg{width:18px;height:18px}
+    .nav__links{display:flex;gap:36px}
+    .nav__links a{text-decoration:none;color:var(--muted);font-weight:600}
+    .nav__links a.active{color:var(--ink)}
+
+    /* header text */
+    .wrap{max-width:1100px;margin:0 auto;padding:64px 24px 28px;text-align:center}
+    h1.title{margin:0 0 10px;font-size:40px;line-height:1.15;font-weight:800;color:var(--ink)}
+    .lead{margin:0;color:#526077;font-size:18px;line-height:1.8}
+
+    /* steps */
+    .steps{
+      max-width:1100px;margin:34px auto 96px;padding:0 24px;
+      display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center
+    }
+    @media (max-width:980px){ .steps{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:540px){ .steps{grid-template-columns:1fr} }
+
+    .step{padding:10px 8px}
+    .icon{
+      width:74px;height:74px;margin:0 auto 18px;border-radius:50%;
+      display:grid;place-items:center;color:#0b1323;background:#ffd93b;
+      box-shadow:0 10px 24px rgba(2,8,23,.08)
+    }
+    .icon.pink{background:#ff7aa0}
+    .icon.yellow{background:#ffd93b}
+    .icon.blue{background:#7dd3fc}
+    .icon.green{background:#34d399}
+
+    .icon svg{width:28px;height:28px;stroke:#0b1323}
+
+    .step h3{margin:0 0 8px;font-size:18px;font-weight:800;color:var(--ink)}
+    .step p{margin:0;color:#526077;line-height:1.8;font-size:15px}
+
+    /* gentle hover lift */
+    .step:hover .icon{transform:translateY(-3px);transition:transform .15s ease}
+
+    /* center row spacing mimic */
+    .spacer{height:8px}
+
+  </style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav__inner">
+    <a class="brand" href="index.html">
+      <div class="brand__logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M6 14c4-7 8-7 12-6-2 4-2 8-6 12-1 1-3 1-6 0 0-3 0-5 0-6z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M9 15l1.5 1.5" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span>Campus Mocktails</span>
+    </a>
+
+<nav class="nav__links">
+  <a href="flavors.html">Flavors</a>
+  <a href="howitworks.html" class="active">How It Works</a>
+  <a href="About.html">About Us</a>
+  <a href="contact.html">Contact</a>
+</nav>
+  </div>
+</header>
+
+<section class="wrap">
+  <h1 class="title">How It Works</h1>
+  <p class="lead">Getting your favorite mocktail is super easy</p>
+</section>
+
+<section class="steps">
+
+  <!-- Choose Flavor -->
+  <div class="step">
+    <div class="icon pink" aria-hidden="true">
+      <!-- list icon -->
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <h3>Choose Flavor</h3>
+    <p>Browse our tasty range and pick your favorite mocktail flavor</p>
+  </div>
+
+  <!-- Set Quantity -->
+  <div class="step">
+    <div class="icon yellow" aria-hidden="true">
+      <!-- plus icon -->
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <h3>Set Quantity</h3>
+    <p>Select how many bottles you would like which is perfect for sharing</p>
+  </div>
+
+  <!-- Pickup or Delivery -->
+  <div class="step">
+    <div class="icon blue" aria-hidden="true">
+      <!-- truck icon -->
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M3 7h10v7H3zM13 9h4l4 3v2h-8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        <circle cx="7" cy="18" r="2" fill="currentColor"/>
+        <circle cx="17" cy="18" r="2" fill="currentColor"/>
+      </svg>
+    </div>
+    <h3>Pickup or Delivery</h3>
+    <p>Choose pickup on campus or get it delivered to your dorm</p>
+  </div>
+
+  <!-- Enjoy -->
+  <div class="step">
+    <div class="icon green" aria-hidden="true">
+      <!-- bolt icon -->
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M13 3L4 14h7l-1 7 9-11h-7l1-7z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h3>Enjoy</h3>
+    <p>Sip and savor your fresh handcrafted mocktail wherever you are</p>
+  </div>
+
+</section>
+
+</body>
+</html>

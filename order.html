@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nexus Mocktails | Order</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    .btn.disabled{opacity:.45;pointer-events:none;cursor:not-allowed}
+    :root{
+      --pink:#ff4f70; --yellow:#ffd93b; --blue:#4a90e2;
+      --ink:#0f172a; --text:#1e293b; --muted:#64748b;
+      --ring:#e7eef6; --card:#ffffff; --bg:#f7f9fc;
+      --shadow:0 18px 40px rgba(2,8,23,.08)
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0}
+    body{font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);background:var(--bg)}
+    .nav{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--ring);z-index:10}
+    .nav__inner{max-width:1200px;margin:0 auto;padding:18px 24px;display:flex;align-items:center;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:700;color:var(--ink);text-decoration:none}
+    .brand__logo{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#ff6a6a,#ffa56b);display:grid;place-items:center;color:#fff;box-shadow:0 6px 20px rgba(255,106,106,.35)}
+    .brand__logo svg{width:18px;height:18px}
+    .nav__links{display:flex;gap:36px}
+    .nav__links a{text-decoration:none;color:var(--muted);font-weight:600}
+
+    .wrap{max-width:1100px;margin:0 auto;padding:54px 24px 24px;text-align:center}
+    h1.title{margin:0 0 8px;font-size:40px;line-height:1.15;font-weight:800;color:var(--ink)}
+    .lead{margin:0;color:#526077;font-size:18px}
+
+    .shell{max-width:1100px;margin:18px auto 80px;padding:0 24px}
+    .panel{background:var(--card);border:1px solid var(--ring);border-radius:18px;box-shadow:var(--shadow);padding:28px;display:grid;grid-template-columns:1fr 1fr;gap:28px}
+    @media (max-width:960px){ .panel{grid-template-columns:1fr} }
+
+    .side h3{margin:0 0 16px;font-size:18px;font-weight:800;color:var(--ink)}
+    .empty{padding:28px 12px;text-align:center;color:#8aa}
+    .empty svg{width:48px;height:48px;opacity:.5;margin-bottom:8px}
+
+    .cart-list{display:flex;flex-direction:column;gap:12px}
+    .item{display:grid;grid-template-columns:auto 1fr auto auto;gap:12px;align-items:center;border:1px solid var(--ring);border-radius:12px;padding:10px 12px;background:#fff}
+    .qty{display:inline-flex;align-items:center;border:1px solid var(--ring);border-radius:999px}
+    .qty button{all:unset;padding:6px 10px;cursor:pointer}
+    .qty input{width:36px;border:0;text-align:center;font-weight:700}
+    .price{font-weight:800;color:#0b1323}
+
+    .ship-option{border:1px solid var(--ring);border-radius:12px;padding:12px 14px;background:#fff;display:flex;gap:12px;align-items:flex-start;cursor:pointer;transition:box-shadow .15s ease,border-color .15s ease}
+    .ship-option:hover{box-shadow:0 8px 22px rgba(2,8,23,.05)}
+    .ship-option input{margin-top:2px}
+    .ship-option .meta{color:#718097;font-size:14px;margin-top:2px}
+
+    .totals{border:1px solid var(--ring);border-radius:12px;padding:14px;background:#fff}
+    .row{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px dashed var(--ring)}
+    .row:last-child{border-bottom:0}
+    .grand{font-weight:800;color:var(--pink)}
+
+    .cta{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(90deg,#ff6a8c,#ffa55b);color:#fff;text-decoration:none;font-weight:700;border-radius:999px;padding:14px 22px;box-shadow:0 14px 28px rgba(255,122,122,.28);transition:transform .08s ease, box-shadow .2s ease}
+    .btn:hover{transform:translateY(-1px);box-shadow:0 18px 34px rgba(255,122,122,.32)}
+    .btn.ghost{background:#fff;color:#0f172a;border:1px solid var(--ring);box-shadow:none}
+    .note{font-size:12px;color:#78879e;margin-left:auto;align-self:center}
+  </style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav__inner">
+    <a class="brand" href="index.html">
+      <div class="brand__logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M6 14c4-7 8-7 12-6-2 4-2 8-6 12-1 1-3 1-6 0 0-3 0-5 0-6z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M9 15l1.5 1.5" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span>Nexus Mocktails</span>
+    </a>
+
+    <nav class="nav__links">
+      <a href="flavors.html">Flavors</a>
+      <a href="howitworks.html">How It Works</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<section class="wrap">
+  <h1 class="title">Place Your Order</h1>
+  <p class="lead">Quick and easy ordering process</p>
+</section>
+
+<section class="shell">
+  <div class="panel">
+
+    <div class="side">
+      <h3>Your Cart <span id="count">(0 items)</span></h3>
+
+      <div id="cartEmpty" class="empty">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M7 6h-2l-1 3m0 0l2.5 7.5a2 2 0 0 0 1.9 1.5h8.2a2 2 0 0 0 1.9-1.4L21 9H4z" stroke="#9bb0c8" stroke-width="2" stroke-linejoin="round"/>
+          <circle cx="9" cy="20" r="1" fill="#9bb0c8"/><circle cx="17" cy="20" r="1" fill="#9bb0c8"/>
+        </svg>
+        <div>Your cart is empty</div>
+        <div>Add some mocktails from the flavors section above</div>
+      </div>
+
+      <div id="cartList" class="cart-list" hidden></div>
+    </div>
+
+    <div class="side">
+      <h3>Delivery Options</h3>
+
+      <label class="ship-option">
+        <input type="radio" name="ship" value="pickup" checked />
+        <div>
+          <div>Off campus pickup</div>
+          <div class="meta">Free at BIUST Stop</div>
+        </div>
+      </label>
+
+      <label class="ship-option" style="margin-top:10px">
+        <input type="radio" name="ship" value="dorm" />
+        <div>
+          <div>Dorm delivery</div>
+          <div class="meta">P5 within campus grounds</div>
+        </div>
+      </label>
+
+      <div class="totals" style="margin-top:14px">
+        <div class="row"><span>Subtotal</span><span id="sub">P0</span></div>
+        <div class="row"><span>Delivery fee</span><span id="ship">P0</span></div>
+        <div class="row"><span class="grand">Total</span><span class="grand" id="grand">P0</span></div>
+      </div>
+
+      <div class="cta">
+        <a id="browse" class="btn ghost" href="flavors.html">Browse flavors</a>
+        <button id="checkout" class="btn disabled" type="button">Add items to cart</button>
+        <span class="note">Button activates after first item is added</span>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<script>
+  const CART_KEY = 'nm_cart';
+  const loadCart = () => JSON.parse(localStorage.getItem(CART_KEY) || '[]');
+  const saveCart = c => localStorage.setItem(CART_KEY, JSON.stringify(c));
+  let cart = loadCart();
+
+  const elCount = document.getElementById('count');
+  const elEmpty = document.getElementById('cartEmpty');
+  const elList  = document.getElementById('cartList');
+  const elSub   = document.getElementById('sub');
+  const elShip  = document.getElementById('ship');
+  const elGrand = document.getElementById('grand');
+  const btnCheckout = document.getElementById('checkout');
+
+  let lastSub = 0;
+
+  function fmt(x){ return 'P' + x.toFixed(0); }
+
+  function render(){
+    if(cart.length === 0){
+      elEmpty.hidden = false;
+      elList.hidden = true;
+      elCount.textContent = '(0 items)';
+      elSub.textContent = 'P0';
+      elShip.textContent = 'P0';
+      elGrand.textContent = 'P0';
+      btnCheckout.textContent = 'Add items to cart';
+      btnCheckout.classList.add('disabled');
+      return;
+    }
+
+    elEmpty.hidden = true;
+    elList.hidden = false;
+    elList.innerHTML = '';
+    let sub = 0;
+
+    for(const it of cart){
+      sub += it.price * it.qty;
+
+      const row = document.createElement('div');
+      row.className = 'item';
+      row.innerHTML = `
+        <div>${it.emoji}</div>
+        <div>
+          <div style="font-weight:700">${it.name}</div>
+          <div style="color:#6f8099;font-size:13px">${it.note || ''}</div>
+        </div>
+        <div class="qty">
+          <button aria-label="decrease">-</button>
+          <input aria-label="quantity" value="${it.qty}" readonly />
+          <button aria-label="increase">+</button>
+        </div>
+        <div class="price">${fmt(it.price * it.qty)}</div>
+      `;
+
+      const [ , , qtyBox ] = row.children;
+
+      qtyBox.children[0].onclick = ()=>{
+        if(it.qty > 1){ it.qty--; }
+        else{
+          const i = cart.indexOf(it);
+          if(i > -1) cart.splice(i,1);
+        }
+        saveCart(cart);
+        render();
+      };
+      qtyBox.children[2].onclick = ()=>{
+        it.qty++;
+        saveCart(cart);
+        render();
+      };
+
+      elList.appendChild(row);
+    }
+
+    lastSub = sub;
+    elCount.textContent = `(${cart.reduce((a,b)=>a+b.qty,0)} items)`;
+    elSub.textContent = fmt(sub);
+
+    const shipMode = document.querySelector('input[name="ship"]:checked').value;
+    const fee = shipMode === 'dorm' ? 5 : 0;
+    elShip.textContent  = fmt(fee);
+    elGrand.textContent = fmt(sub + fee);
+
+    btnCheckout.textContent = 'Proceed to payment';
+    btnCheckout.classList.remove('disabled');
+
+    saveCart(cart);
+  }
+
+  document.querySelectorAll('input[name="ship"]').forEach(r=>r.addEventListener('change', render));
+
+  btnCheckout.addEventListener('click', ()=>{
+    if(btnCheckout.classList.contains('disabled')) return;
+    // share subtotal with payment page
+    localStorage.setItem('cm_subtotal', String(lastSub));
+    const q = new URLSearchParams({ subtotal: String(lastSub) }).toString();
+    window.location.href = 'payment.html?' + q;
+  });
+
+  // sync if another tab changes the cart
+  window.addEventListener('storage', e=>{
+    if(e.key === CART_KEY){
+      cart = loadCart();
+      render();
+    }
+  });
+
+  render();
+</script>
+
+</body>
+</html>
