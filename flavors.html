@@ -42,6 +42,10 @@
       color:var(--text);
       background:var(--bg);
     }
+    body.cocktail{
+      --pink:#4a90e2;
+      --bg:#f0f6ff;
+    }
 
     /* nav */
     .nav{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--ring);z-index:10}
@@ -136,6 +140,7 @@
     </a>
 
     <nav class="nav__links">
+      <a href="#" id="modeToggle">Cocktails</a>
       <a href="flavors.html" class="active">Flavors</a>
       <a href="howitworks.html">How It Works</a>
       <a href="about.html">About & Contact</a>
@@ -150,7 +155,7 @@
   <p class="lead">Pick a favorite and enjoy a chilled moment</p>
 </section>
 
-<section class="grid">
+<section class="grid mocktails">
   <!-- Card 1 -->
   <article class="card">
     <picture>
@@ -296,6 +301,122 @@
   </article>
 </section>
 
+<section class="grid cocktails">
+  <!-- Cocktail Card 1 -->
+  <article class="card">
+    <picture>
+      <img class="card__img" src="images/Okavango.webp" alt="Okavango Ripple cocktail" loading="lazy" decoding="async" />
+    </picture>
+    <div class="card__body">
+      <span class="badge">Signature</span>
+      <h3 class="card__title">Okavango Ripple</h3>
+      <p class="card__text">Botanical blend with wild citrus</p>
+      <div class="card__row">
+        <span class="price">P45</span>
+        <a class="btn add" href="#" data-name="Okavango Ripple" data-price="45" data-note="Botanical blend with wild citrus" data-emoji="🍸">
+          Add
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <!-- Cocktail Card 2 -->
+  <article class="card">
+    <picture>
+      <img class="card__img" src="images/StrawberryD.webp" alt="Strawberry Daiquiri cocktail" loading="lazy" decoding="async" />
+    </picture>
+    <div class="card__body">
+      <span class="badge">Fruity</span>
+      <h3 class="card__title">Strawberry Daiquiri</h3>
+      <p class="card__text">Classic blend with a sweet kick</p>
+      <div class="card__row">
+        <span class="price">P42</span>
+        <a class="btn add" href="#" data-name="Strawberry Daiquiri" data-price="42" data-note="Classic blend with a sweet kick" data-emoji="🍹">
+          Add
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <!-- Cocktail Card 3 -->
+  <article class="card">
+    <picture>
+      <img class="card__img" src="images/matsieng.webp" alt="Matsieng Mule cocktail" loading="lazy" decoding="async" />
+    </picture>
+    <div class="card__body">
+      <span class="badge">Local</span>
+      <h3 class="card__title">Matsieng Mule</h3>
+      <p class="card__text">Spicy ginger with sorghum spirit</p>
+      <div class="card__row">
+        <span class="price">P40</span>
+        <a class="btn add" href="#" data-name="Matsieng Mule" data-price="40" data-note="Spicy ginger with sorghum spirit" data-emoji="🍸">
+          Add
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <!-- Cocktail Card 4 -->
+  <article class="card">
+    <picture>
+      <img class="card__img" src="images/A1.webp" alt="A1 Spritz cocktail" loading="lazy" decoding="async" />
+    </picture>
+    <div class="card__body">
+      <span class="badge">Bold</span>
+      <h3 class="card__title">A1 Spritz</h3>
+      <p class="card__text">Bitter orange with bubbly zest</p>
+      <div class="card__row">
+        <span class="price">P44</span>
+        <a class="btn add" href="#" data-name="A1 Spritz" data-price="44" data-note="Bitter orange with bubbly zest" data-emoji="🍸">
+          Add
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <!-- Cocktail Card 5 -->
+  <article class="card">
+    <picture>
+      <img class="card__img" src="images/after_nine.webp" alt="After Nine cocktail" loading="lazy" decoding="async" />
+    </picture>
+    <div class="card__body">
+      <span class="badge">Minty</span>
+      <h3 class="card__title">After Nine</h3>
+      <p class="card__text">Creamy cocoa with mint chill</p>
+      <div class="card__row">
+        <span class="price">P38</span>
+        <a class="btn add" href="#" data-name="After Nine" data-price="38" data-note="Creamy cocoa with mint chill" data-emoji="🍸">
+          Add
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <!-- Cocktail Card 6 -->
+  <article class="card">
+    <picture>
+      <img class="card__img" src="images/long_island.webp" alt="Long Island Chill cocktail" loading="lazy" decoding="async" />
+    </picture>
+    <div class="card__body">
+      <span class="badge">Classic</span>
+      <h3 class="card__title">Long Island Chill</h3>
+      <p class="card__text">Five-spirit mix with cola top</p>
+      <div class="card__row">
+        <span class="price">P48</span>
+        <a class="btn add" href="#" data-name="Long Island Chill" data-price="48" data-note="Five-spirit mix with cola top" data-emoji="🍹">
+          Add
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </article>
+</section>
+
 <p class="note wrap">Prices are for demo only</p>
 
 <!-- tiny toast -->
@@ -371,6 +492,31 @@
 
   // first paint
   updateFab();
+</script>
+
+<script>
+  const MODE_KEY = 'nm_mode';
+  function getMode(){ return localStorage.getItem(MODE_KEY) || 'mocktails'; }
+  function setMode(m){ localStorage.setItem(MODE_KEY, m); }
+  function applyMode(){
+    const mode = getMode();
+    document.body.classList.toggle('cocktail', mode === 'cocktails');
+    document.querySelectorAll('.grid.mocktails').forEach(el => el.style.display = mode==='mocktails' ? '' : 'none');
+    document.querySelectorAll('.grid.cocktails').forEach(el => el.style.display = mode==='cocktails' ? '' : 'none');
+    const t = document.getElementById('modeToggle');
+    if(t) t.textContent = mode === 'mocktails' ? 'Cocktails' : 'Mocktails';
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    const t = document.getElementById('modeToggle');
+    if(t){
+      t.addEventListener('click', e => {
+        e.preventDefault();
+        setMode(getMode()==='mocktails' ? 'cocktails' : 'mocktails');
+        applyMode();
+      });
+    }
+    applyMode();
+  });
 </script>
 
 <a id="cartFab" class="cart-fab disabled" href="order.html" aria-disabled="true">
