@@ -105,10 +105,10 @@
 
     <h3>Payment and Contact Information</h3>
 
-    <div class="grid">
+    <form id="contactForm" action="https://formspree.io/f/xjkoqakd" method="POST" class="grid">
 
       <!-- left -->
-      <form id="contactForm">
+      <div>
         <div class="field">
           <label class="label" for="fullName">Full Name</label>
           <input class="input" id="fullName" name="fullName" type="text" placeholder="Enter your full name" required />
@@ -123,7 +123,7 @@
           <label class="label" for="notes">Order Notes optional</label>
           <textarea class="textarea" id="notes" name="notes" placeholder="Any special instructions"></textarea>
         </div>
-      </form>
+      </div>
 
       <!-- right -->
       <div>
@@ -181,11 +181,11 @@
           <div class="row"><span>Subtotal</span><strong id="subtotal">P0</strong></div>
           <div class="row"><span>Delivery Fee</span><strong id="delivery">P0</strong></div>
           <div class="row"><span>Total</span><strong class="total" id="total">P0</strong></div>
-          <button class="confirm" id="confirmBtn" disabled>Confirm Order</button>
+          <button class="confirm" id="confirmBtn" type="submit" disabled>Confirm Order</button>
         </div>
       </div>
 
-    </div>
+    </form>
   </div>
 </div>
 
@@ -283,30 +283,7 @@
     els.confirm.disabled = !(nameOk && phoneOk && payOk && cart.length > 0);
   }
 
-// confirm
-els.confirm.addEventListener('click', e=>{
-  e.preventDefault();
-  if (els.confirm.disabled) return;
-
-  const shipSel = document.querySelector("input[name='ship']:checked")?.value || 'pickup';
-  const paySel  = document.querySelector("input[name='pay']:checked")?.value || '';
-
-  const sub = Number(document.getElementById('subtotal').textContent.replace(/^P/,'') || 0);
-  const del = Number(document.getElementById('delivery').textContent.replace(/^P/,'') || 0);
-
-  const checkout = {
-    fullName: els.form.fullName.value.trim(),
-    phone: els.form.phone.value.trim(),
-    notes: els.form.notes.value.trim(),
-    ship: shipSel,
-    pay:  paySel,
-    subtotal: sub,
-    delivery: del
-  };
-  localStorage.setItem('nm_checkout', JSON.stringify(checkout));
-
-  location.href = 'review.html';
-});
+// confirm submission handled by form action
 
 
   function showToast(){
