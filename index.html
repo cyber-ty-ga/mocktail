@@ -15,9 +15,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
     <link rel="preload"
           as="image"
-          href="images/aurora-fizz-800w.webp"
-          imagesrcset="images/aurora-fizz-400w.webp 400w, images/aurora-fizz-800w.webp 800w, images/Aurora Fizz.webp 1024w"
-          imagesizes="(max-width: 600px) 90vw, (max-width: 980px) 60vw, 480px" />
+          href="images/Aurora Fizz.webp" />
     <style>
         :root{
           --pink:#ff4f70;
@@ -326,15 +324,12 @@
           <source
             type="image/webp"
             id="heroSrc"
-            srcset="images/aurora-fizz-400w.webp 400w, images/aurora-fizz-800w.webp 800w, images/Aurora Fizz.webp 1024w"
-            sizes="(max-width: 600px) 90vw, (max-width: 980px) 60vw, 480px"
+            srcset="images/Aurora Fizz.webp"
           />
           <img
             class="photo"
             id="heroImg"
             src="images/Aurora Fizz.webp"
-            srcset="images/aurora-fizz-400w.webp 400w, images/aurora-fizz-800w.webp 800w, images/Aurora Fizz.webp 1024w"
-            sizes="(max-width: 600px) 90vw, (max-width: 980px) 60vw, 480px"
             alt="Aurora Fizz mocktail glass"
             width="1024"
             height="1024"
@@ -355,16 +350,10 @@
     <div class="popular-grid">
       <article class="card">
         <picture>
-          <source
-            type="image/webp"
-            srcset="images/kolatonic-400w.webp 400w, images/kolatonic-800w.webp 800w, images/Kolatonic.webp 1024w"
-            sizes="(max-width: 640px) 88vw, (max-width: 1024px) 42vw, 320px"
-          />
+          <source type="image/webp" srcset="images/Kolatonic.webp" />
           <img
             class="card__img"
             src="images/Kolatonic.webp"
-            srcset="images/kolatonic-400w.webp 400w, images/kolatonic-800w.webp 800w, images/Kolatonic.webp 1024w"
-            sizes="(max-width: 640px) 88vw, (max-width: 1024px) 42vw, 320px"
             alt="Kolatonic mocktail glass"
             width="1024"
             height="1024"
@@ -392,16 +381,10 @@
 
       <article class="card">
         <picture>
-          <source
-            type="image/webp"
-            srcset="images/lime-cooler-400w.webp 400w, images/lime-cooler-800w.webp 800w, images/Lime Cooler.webp 1024w"
-            sizes="(max-width: 640px) 88vw, (max-width: 1024px) 42vw, 320px"
-          />
+          <source type="image/webp" srcset="images/Lime Cooler.webp" />
           <img
             class="card__img"
             src="images/Lime Cooler.webp"
-            srcset="images/lime-cooler-400w.webp 400w, images/lime-cooler-800w.webp 800w, images/Lime Cooler.webp 1024w"
-            sizes="(max-width: 640px) 88vw, (max-width: 1024px) 42vw, 320px"
             alt="Lime Cooler mocktail glass"
             width="1024"
             height="1024"
@@ -429,16 +412,10 @@
 
       <article class="card">
         <picture>
-          <source
-            type="image/webp"
-            srcset="images/berry-blaze-400w.webp 400w, images/berry-blaze-800w.webp 800w, images/Berry Blaze.webp 1024w"
-            sizes="(max-width: 640px) 88vw, (max-width: 1024px) 42vw, 320px"
-          />
+          <source type="image/webp" srcset="images/Berry Blaze.webp" />
           <img
             class="card__img"
             src="images/Berry Blaze.webp"
-            srcset="images/berry-blaze-400w.webp 400w, images/berry-blaze-800w.webp 800w, images/Berry Blaze.webp 1024w"
-            sizes="(max-width: 640px) 88vw, (max-width: 1024px) 42vw, 320px"
             alt="Berry Blaze mocktail glass"
             width="1024"
             height="1024"
@@ -550,8 +527,6 @@
         const tText = document.getElementById('themeText');
         const pill  = document.getElementById('boozePill');
         const cNotice = document.getElementById('cocktailsNotice');
-        const HERO_SET = 'images/aurora-fizz-400w.webp 400w, images/aurora-fizz-800w.webp 800w, images/Aurora Fizz.webp 1024w';
-        const HERO_SIZES = '(max-width: 600px) 90vw, (max-width: 980px) 60vw, 480px';
 
         function setTheme(name){
           document.documentElement.setAttribute('data-theme', name);
@@ -568,11 +543,11 @@
           const src = document.getElementById('heroSrc');
           const img = document.getElementById('heroImg');
           if(src && img){
-            src.srcset = HERO_SET;
-            src.sizes = HERO_SIZES;
+            src.srcset = 'images/Aurora Fizz.webp';
+            src.removeAttribute('sizes');
             img.src = 'images/Aurora Fizz.webp';
-            img.srcset = HERO_SET;
-            img.sizes = HERO_SIZES;
+            img.removeAttribute('srcset');
+            img.removeAttribute('sizes');
             img.alt = 'Aurora Fizz mocktail glass';
           }
         }
