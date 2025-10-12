@@ -3,8 +3,16 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Explore the Nexus Mocktails flavor lineup - from zesty Lime Cooler to rich After Nine Virgin - and add your favorites to the cart in seconds." />
   <title>Nexus Mocktails — Flavors</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="preload"
+        as="image"
+        href="images/kolatonic-800w.webp"
+        imagesrcset="images/kolatonic-400w.webp 400w, images/kolatonic-800w.webp 800w, images/Kolatonic.webp 1024w"
+        imagesizes="(max-width: 640px) 90vw, (max-width: 1024px) 44vw, 320px" />
   <style>
     /* floating checkout button */
 .cart-fab{
@@ -225,7 +233,7 @@
 
   <div id="themeBurst" aria-hidden="true"></div>
   <button id="themeToggle" class="theme-toggle" type="button">
-    <span id="themeIcon">🥤</span>
+    <span id="themeIcon">&#x1F964;</span>
     <span id="themeText">Mocktails</span>
   </button>
   <div id="boozePill" class="booze-pill" role="button" tabindex="0" aria-label="Open cocktails menu">
@@ -244,8 +252,22 @@
   <!-- Card 1 -->
   <article class="card">
     <picture>
-      <source type="image/webp" srcset="images/Kolatonic.webp" />
-      <img class="card__img" src="images/Kolatonic.webp" alt="Kolatonic mocktail glass" loading="lazy" decoding="async" />
+      <source
+        type="image/webp"
+        srcset="images/kolatonic-400w.webp 400w, images/kolatonic-800w.webp 800w, images/Kolatonic.webp 1024w"
+        sizes="(max-width: 640px) 90vw, (max-width: 1024px) 44vw, 320px"
+      />
+      <img
+        class="card__img"
+        src="images/Kolatonic.webp"
+        srcset="images/kolatonic-400w.webp 400w, images/kolatonic-800w.webp 800w, images/Kolatonic.webp 1024w"
+        sizes="(max-width: 640px) 90vw, (max-width: 1024px) 44vw, 320px"
+        alt="Kolatonic mocktail glass"
+        width="1024"
+        height="1024"
+        loading="lazy"
+        decoding="async"
+      />
     </picture>
     <div class="card__body">
       <span class="badge">Classic</span>
@@ -256,8 +278,8 @@
         <a class="btn add" href="#"
            data-name="Kolatonic"
            data-price="25"
-           data-note="Cola spice with crisp tonic and citrus oils"
-           data-emoji="🥃">
+           data-note="Cola spice lifted with crisp tonic and citrus oils"
+           data-emoji="&#x1F943;">
           Add
           <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
@@ -268,8 +290,22 @@
   <!-- Card 2 -->
   <article class="card">
     <picture>
-      <source type="image/webp" srcset="images/Lime Cooler.webp" />
-      <img class="card__img" src="images/Lime Cooler.webp" alt="Lime Cooler mocktail glass" loading="lazy" decoding="async" />
+      <source
+        type="image/webp"
+        srcset="images/lime-cooler-400w.webp 400w, images/lime-cooler-800w.webp 800w, images/Lime Cooler.webp 1024w"
+        sizes="(max-width: 640px) 90vw, (max-width: 1024px) 44vw, 320px"
+      />
+      <img
+        class="card__img"
+        src="images/Lime Cooler.webp"
+        srcset="images/lime-cooler-400w.webp 400w, images/lime-cooler-800w.webp 800w, images/Lime Cooler.webp 1024w"
+        sizes="(max-width: 640px) 90vw, (max-width: 1024px) 44vw, 320px"
+        alt="Lime Cooler mocktail glass"
+        width="1024"
+        height="1024"
+        loading="lazy"
+        decoding="async"
+      />
     </picture>
     <div class="card__body">
       <span class="badge">Crisp</span>
@@ -281,7 +317,7 @@
            data-name="Lime Cooler"
            data-price="25"
            data-note="Bright lime over crushed ice with a minty chill"
-           data-emoji="🍋">
+           data-emoji="&#x1F34B;">
           Add
           <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
@@ -292,8 +328,22 @@
   <!-- Card 3 -->
   <article class="card">
     <picture>
-      <source type="image/webp" srcset="images/Passion fruit.webp" />
-      <img class="card__img" src="images/Passion fruit.webp" alt="Passion fruit mocktail glass" loading="lazy" decoding="async" />
+      <source
+        type="image/webp"
+        srcset="images/passion-fruit-400w.webp 400w, images/Passion fruit.webp 720w"
+        sizes="(max-width: 640px) 90vw, (max-width: 1024px) 44vw, 320px"
+      />
+      <img
+        class="card__img"
+        src="images/Passion fruit.webp"
+        srcset="images/passion-fruit-400w.webp 400w, images/Passion fruit.webp 720w"
+        sizes="(max-width: 640px) 90vw, (max-width: 1024px) 44vw, 320px"
+        alt="Passion fruit mocktail glass"
+        width="720"
+        height="1080"
+        loading="lazy"
+        decoding="async"
+      />
     </picture>
     <div class="card__body">
       <span class="badge">Sunny</span>
@@ -305,7 +355,7 @@
            data-name="Passion Fruit"
            data-price="25"
            data-note="Tart passion fruit with silky vanilla foam"
-           data-emoji="🥭">
+           data-emoji="&#x1F96D;">
           Add
           <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
@@ -316,8 +366,22 @@
   <!-- Card 4 -->
   <article class="card">
     <picture>
-      <source type="image/webp" srcset="images/Berry Blaze.webp" />
-      <img class="card__img" src="images/Berry Blaze.webp" alt="Berry Blaze mocktail glass" loading="lazy" decoding="async" />
+      <source
+        type="image/webp"
+        srcset="images/berry-blaze-400w.webp 400w, images/berry-blaze-800w.webp 800w, images/Berry Blaze.webp 1024w"
+        sizes="(max-width: 640px) 90vw, (max-width: 1024px) 44vw, 320px"
+      />
+      <img
+        class="card__img"
+        src="images/Berry Blaze.webp"
+        srcset="images/berry-blaze-400w.webp 400w, images/berry-blaze-800w.webp 800w, images/Berry Blaze.webp 1024w"
+        sizes="(max-width: 640px) 90vw, (max-width: 1024px) 44vw, 320px"
+        alt="Berry Blaze mocktail glass"
+        width="1024"
+        height="1024"
+        loading="lazy"
+        decoding="async"
+      />
     </picture>
     <div class="card__body">
       <span class="badge">Sweet</span>
@@ -329,7 +393,7 @@
            data-name="Berry Blaze"
            data-price="28"
            data-note="Ripe berries with a spark of ginger heat"
-           data-emoji="🫐">
+           data-emoji="&#x1F347;">
           Add
           <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
@@ -340,8 +404,22 @@
   <!-- Card 5 -->
   <article class="card">
     <picture>
-      <source type="image/webp" srcset="images/Aurora Fizz.webp" />
-      <img class="card__img" src="images/Aurora Fizz.webp" alt="Aurora Fizz mocktail glass" loading="lazy" decoding="async" />
+      <source
+        type="image/webp"
+        srcset="images/aurora-fizz-400w.webp 400w, images/aurora-fizz-800w.webp 800w, images/Aurora Fizz.webp 1024w"
+        sizes="(max-width: 640px) 90vw, (max-width: 1024px) 44vw, 320px"
+      />
+      <img
+        class="card__img"
+        src="images/Aurora Fizz.webp"
+        srcset="images/aurora-fizz-400w.webp 400w, images/aurora-fizz-800w.webp 800w, images/Aurora Fizz.webp 1024w"
+        sizes="(max-width: 640px) 90vw, (max-width: 1024px) 44vw, 320px"
+        alt="Aurora Fizz mocktail glass"
+        width="1024"
+        height="1024"
+        loading="lazy"
+        decoding="async"
+      />
     </picture>
     <div class="card__body">
       <span class="badge">Glow</span>
@@ -353,7 +431,7 @@
            data-name="Aurora Fizz"
            data-price="30"
            data-note="Lychee, citrus, and shimmering soda over ice"
-           data-emoji="✨">
+           data-emoji="&#x2728;">
           Add
           <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
@@ -364,8 +442,22 @@
   <!-- Card 6 -->
   <article class="card">
     <picture>
-      <source type="image/webp" srcset="images/After Nine virgin.webp" />
-      <img class="card__img" src="images/After Nine virgin.webp" alt="After Nine Virgin mocktail glass" loading="lazy" decoding="async" />
+      <source
+        type="image/webp"
+        srcset="images/after-nine-virgin-400w.webp 400w, images/after-nine-virgin-800w.webp 800w, images/After Nine virgin.webp 1024w"
+        sizes="(max-width: 640px) 90vw, (max-width: 1024px) 44vw, 320px"
+      />
+      <img
+        class="card__img"
+        src="images/After Nine virgin.webp"
+        srcset="images/after-nine-virgin-400w.webp 400w, images/after-nine-virgin-800w.webp 800w, images/After Nine virgin.webp 1024w"
+        sizes="(max-width: 640px) 90vw, (max-width: 1024px) 44vw, 320px"
+        alt="After Nine Virgin mocktail glass"
+        width="1024"
+        height="1024"
+        loading="lazy"
+        decoding="async"
+      />
     </picture>
     <div class="card__body">
       <span class="badge">Minty</span>
@@ -377,7 +469,7 @@
            data-name="After Nine Virgin"
            data-price="32"
            data-note="Chocolate cream, mint, and slow-melt crushed ice"
-           data-emoji="🍫">
+           data-emoji="&#x1F36B;">
           Add
           <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
@@ -388,8 +480,10 @@
 
 <p id="cocktailsNotice" class="lead" role="status" aria-live="polite" hidden>
   Cocktails are currently not available, but they'll be back on the menu soon.
-</p>
-
+</p>
+
+
+
 <!-- tiny toast -->
 <div id="toast" class="toast" role="status" aria-live="polite">Added to cart</div>
 
@@ -476,19 +570,19 @@
     const wordB = document.getElementById('wordB');
     const cNotice = document.getElementById('cocktailsNotice');
 
-    function setTheme(name){
-      document.documentElement.setAttribute('data-theme', name);
-      localStorage.setItem(THEME_KEY, name);
-      const isCocktails = name === 'cocktails';
-      tIcon.textContent = isCocktails ? '🍸' : '🥤';
-      tText.textContent = isCocktails ? 'Cocktails' : 'Mocktails';
-      btn.classList.toggle('pulse', !isCocktails);
-      if(pill) pill.classList.toggle('show', !isCocktails);
-      if(cNotice) cNotice.hidden = !isCocktails;
-      document.querySelectorAll('.grid.mocktails').forEach(el => el.style.display = isCocktails ? 'none' : '');
-      if(wordA) wordA.textContent = isCocktails ? 'Bold' : 'Fresh';
-      if(wordB) wordB.textContent = isCocktails ? 'Cocktails' : 'Flavors';
-    }
+      function setTheme(name){
+        document.documentElement.setAttribute('data-theme', name);
+        localStorage.setItem(THEME_KEY, name);
+        const isCocktails = name === 'cocktails';
+        tIcon.textContent = isCocktails ? '\u{1F378}' : '\u{1F964}';
+        tText.textContent = isCocktails ? 'Cocktails' : 'Mocktails';
+        btn.classList.toggle('pulse', !isCocktails);
+        if(pill) pill.classList.toggle('show', !isCocktails);
+        if(cNotice) cNotice.hidden = !isCocktails;
+        document.querySelectorAll('.grid.mocktails').forEach(el => el.style.display = isCocktails ? 'none' : '');
+        if(wordA) wordA.textContent = isCocktails ? 'Bold' : 'Fresh';
+        if(wordB) wordB.textContent = isCocktails ? 'Cocktails' : 'Flavors';
+      }
 
     function burstFor(name){
       return name === 'cocktails'

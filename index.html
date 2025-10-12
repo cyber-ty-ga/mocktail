@@ -3,8 +3,21 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Refresh with Nexus Mocktails: handcrafted non-alcoholic drinks for students, delivered chilled and ready for study breaks or celebrations." />
+    <meta property="og:title" content="Nexus Mocktails" />
+    <meta property="og:description" content="Handcrafted mocktails for students—discover signature flavors and quick delivery from Nexus Mocktails." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://cyber-ty-ga.github.io/mocktail/" />
+    <meta property="og:image" content="https://cyber-ty-ga.github.io/mocktail/images/Aurora%20Fizz.webp" />
     <title>Nexus Mocktails</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="preload"
+          as="image"
+          href="images/aurora-fizz-800w.webp"
+          imagesrcset="images/aurora-fizz-400w.webp 400w, images/aurora-fizz-800w.webp 800w, images/Aurora Fizz.webp 1024w"
+          imagesizes="(max-width: 600px) 90vw, (max-width: 980px) 60vw, 480px" />
     <style>
         :root{
           --pink:#ff4f70;
@@ -284,7 +297,7 @@
 
       <div id="themeBurst" aria-hidden="true"></div>
       <button id="themeToggle" class="theme-toggle" type="button">
-        <span id="themeIcon">M</span>
+        <span id="themeIcon">&#x1F964;</span>
         <span id="themeText">Mocktails</span>
       </button>
       <div id="boozePill" class="booze-pill" role="button" tabindex="0" aria-label="Open cocktails menu">
@@ -310,8 +323,24 @@
 
       <div class="media">
         <picture id="heroPic">
-          <source type="image/webp" id="heroSrc" srcset="images/Aurora Fizz.webp" />
-          <img class="photo" id="heroImg" src="images/Aurora Fizz.webp" alt="Aurora Fizz mocktail glass" width="200" loading="lazy" decoding="async" />
+          <source
+            type="image/webp"
+            id="heroSrc"
+            srcset="images/aurora-fizz-400w.webp 400w, images/aurora-fizz-800w.webp 800w, images/Aurora Fizz.webp 1024w"
+            sizes="(max-width: 600px) 90vw, (max-width: 980px) 60vw, 480px"
+          />
+          <img
+            class="photo"
+            id="heroImg"
+            src="images/Aurora Fizz.webp"
+            srcset="images/aurora-fizz-400w.webp 400w, images/aurora-fizz-800w.webp 800w, images/Aurora Fizz.webp 1024w"
+            sizes="(max-width: 600px) 90vw, (max-width: 980px) 60vw, 480px"
+            alt="Aurora Fizz mocktail glass"
+            width="1024"
+            height="1024"
+            loading="eager"
+            decoding="async"
+          />
         </picture>
         <span class="blob" aria-hidden="true"></span>
         <span class="blob2" aria-hidden="true"></span>
@@ -326,8 +355,22 @@
     <div class="popular-grid">
       <article class="card">
         <picture>
-          <source type="image/webp" srcset="images/Kolatonic.webp" />
-          <img class="card__img" src="images/Kolatonic.webp" alt="Kolatonic mocktail glass" loading="lazy" decoding="async" />
+          <source
+            type="image/webp"
+            srcset="images/kolatonic-400w.webp 400w, images/kolatonic-800w.webp 800w, images/Kolatonic.webp 1024w"
+            sizes="(max-width: 640px) 88vw, (max-width: 1024px) 42vw, 320px"
+          />
+          <img
+            class="card__img"
+            src="images/Kolatonic.webp"
+            srcset="images/kolatonic-400w.webp 400w, images/kolatonic-800w.webp 800w, images/Kolatonic.webp 1024w"
+            sizes="(max-width: 640px) 88vw, (max-width: 1024px) 42vw, 320px"
+            alt="Kolatonic mocktail glass"
+            width="1024"
+            height="1024"
+            loading="lazy"
+            decoding="async"
+          />
         </picture>
         <div class="card__body">
           <span class="badge">Classic</span>
@@ -339,7 +382,7 @@
                data-name="Kolatonic"
                data-price="25"
                data-note="Cola spice lifted with crisp tonic and citrus oils"
-               data-emoji="K">
+               data-emoji="&#x1F943;">
               Add
               <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
@@ -349,8 +392,22 @@
 
       <article class="card">
         <picture>
-          <source type="image/webp" srcset="images/Lime Cooler.webp" />
-          <img class="card__img" src="images/Lime Cooler.webp" alt="Lime Cooler mocktail glass" loading="lazy" decoding="async" />
+          <source
+            type="image/webp"
+            srcset="images/lime-cooler-400w.webp 400w, images/lime-cooler-800w.webp 800w, images/Lime Cooler.webp 1024w"
+            sizes="(max-width: 640px) 88vw, (max-width: 1024px) 42vw, 320px"
+          />
+          <img
+            class="card__img"
+            src="images/Lime Cooler.webp"
+            srcset="images/lime-cooler-400w.webp 400w, images/lime-cooler-800w.webp 800w, images/Lime Cooler.webp 1024w"
+            sizes="(max-width: 640px) 88vw, (max-width: 1024px) 42vw, 320px"
+            alt="Lime Cooler mocktail glass"
+            width="1024"
+            height="1024"
+            loading="lazy"
+            decoding="async"
+          />
         </picture>
         <div class="card__body">
           <span class="badge">Crisp</span>
@@ -362,7 +419,7 @@
                data-name="Lime Cooler"
                data-price="25"
                data-note="Bright lime over crushed ice with a minty chill"
-               data-emoji="L">
+               data-emoji="&#x1F34B;">
               Add
               <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
@@ -372,8 +429,22 @@
 
       <article class="card">
         <picture>
-          <source type="image/webp" srcset="images/Berry Blaze.webp" />
-          <img class="card__img" src="images/Berry Blaze.webp" alt="Berry Blaze mocktail glass" loading="lazy" decoding="async" />
+          <source
+            type="image/webp"
+            srcset="images/berry-blaze-400w.webp 400w, images/berry-blaze-800w.webp 800w, images/Berry Blaze.webp 1024w"
+            sizes="(max-width: 640px) 88vw, (max-width: 1024px) 42vw, 320px"
+          />
+          <img
+            class="card__img"
+            src="images/Berry Blaze.webp"
+            srcset="images/berry-blaze-400w.webp 400w, images/berry-blaze-800w.webp 800w, images/Berry Blaze.webp 1024w"
+            sizes="(max-width: 640px) 88vw, (max-width: 1024px) 42vw, 320px"
+            alt="Berry Blaze mocktail glass"
+            width="1024"
+            height="1024"
+            loading="lazy"
+            decoding="async"
+          />
         </picture>
         <div class="card__body">
           <span class="badge">Sweet</span>
@@ -385,7 +456,7 @@
                data-name="Berry Blaze"
                data-price="28"
                data-note="Ripe berries with a spark of ginger heat"
-               data-emoji="B">
+               data-emoji="&#x1F347;">
               Add
               <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
@@ -428,7 +499,7 @@
         name:  btn.dataset.name,
         price: Number(btn.dataset.price),
         note:  btn.dataset.note || '',
-        emoji: btn.dataset.emoji || 'M'
+        emoji: btn.dataset.emoji || '\u{1F964}'
       });
       flashToast(`${btn.dataset.name} added`);
       const old = btn.textContent;
@@ -479,12 +550,14 @@
         const tText = document.getElementById('themeText');
         const pill  = document.getElementById('boozePill');
         const cNotice = document.getElementById('cocktailsNotice');
+        const HERO_SET = 'images/aurora-fizz-400w.webp 400w, images/aurora-fizz-800w.webp 800w, images/Aurora Fizz.webp 1024w';
+        const HERO_SIZES = '(max-width: 600px) 90vw, (max-width: 980px) 60vw, 480px';
 
         function setTheme(name){
           document.documentElement.setAttribute('data-theme', name);
           localStorage.setItem(THEME_KEY, name);
           const isCocktails = name === 'cocktails';
-          tIcon.textContent = isCocktails ? 'C' : 'M';
+          tIcon.textContent = isCocktails ? '\u{1F378}' : '\u{1F964}';
           tText.textContent = isCocktails ? 'Cocktails' : 'Mocktails';
           btn.classList.toggle('pulse', !isCocktails);
           if(pill) pill.classList.toggle('show', !isCocktails);
@@ -495,8 +568,11 @@
           const src = document.getElementById('heroSrc');
           const img = document.getElementById('heroImg');
           if(src && img){
-            src.srcset = 'images/Aurora Fizz.webp';
+            src.srcset = HERO_SET;
+            src.sizes = HERO_SIZES;
             img.src = 'images/Aurora Fizz.webp';
+            img.srcset = HERO_SET;
+            img.sizes = HERO_SIZES;
             img.alt = 'Aurora Fizz mocktail glass';
           }
         }
