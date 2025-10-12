@@ -118,12 +118,35 @@
 
       .media{
         position:relative;
-        
+        width:min(100%, 380px);
+        margin:0 auto;
+      }
+      .photo-frame{
+        width:min(100%, 360px);
+        margin:0 auto;
+        border-radius:22px;
+        overflow:hidden;
+        position:relative;
+        aspect-ratio:1/1;
+        box-shadow:0 18px 40px rgba(2,8,23,.18);
+        background:var(--card);
+      }
+      .photo-frame::before{
+        content:"";
+        display:block;
+        padding-bottom:100%;
+      }
+      .photo-frame picture{
+        position:absolute;
+        inset:0;
+        display:block;
+        height:100%;
+        width:100%;
       }
       .photo{
-        width:100%; aspect-ratio:16/11; object-fit:cover;
-        border-radius:22px;
-        box-shadow:0 18px 40px rgba(2,8,23,.18);
+        width:100%;
+        height:100%;
+        object-fit:cover;
         display:block;
       }
       .blob{
@@ -322,26 +345,28 @@
       </div>
 
       <div class="media">
-        <picture id="heroPic">
-          <source
-            type="image/webp"
-            id="heroSrc"
-            srcset="images/aurora-fizz-400w.webp 400w, images/aurora-fizz-800w.webp 800w, images/Aurora Fizz.webp 1024w"
-            sizes="(max-width: 600px) 90vw, (max-width: 980px) 60vw, 480px"
-          />
-          <img
-            class="photo"
-            id="heroImg"
-            src="images/Aurora Fizz.webp"
-            srcset="images/aurora-fizz-400w.webp 400w, images/aurora-fizz-800w.webp 800w, images/Aurora Fizz.webp 1024w"
-            sizes="(max-width: 600px) 90vw, (max-width: 980px) 60vw, 480px"
-            alt="Aurora Fizz mocktail glass"
-            width="1024"
-            height="1024"
-            loading="eager"
-            decoding="async"
-          />
-        </picture>
+        <div class="photo-frame">
+          <picture id="heroPic">
+            <source
+              type="image/webp"
+              id="heroSrc"
+              srcset="images/aurora-fizz-400w.webp 400w, images/aurora-fizz-800w.webp 800w, images/Aurora Fizz.webp 1024w"
+              sizes="(max-width: 600px) 90vw, (max-width: 980px) 60vw, 480px"
+            />
+            <img
+              class="photo"
+              id="heroImg"
+              src="images/Aurora Fizz.webp"
+              srcset="images/aurora-fizz-400w.webp 400w, images/aurora-fizz-800w.webp 800w, images/Aurora Fizz.webp 1024w"
+              sizes="(max-width: 600px) 90vw, (max-width: 980px) 60vw, 480px"
+              alt="Aurora Fizz mocktail glass"
+              width="1024"
+              height="1024"
+              loading="eager"
+              decoding="async"
+            />
+          </picture>
+        </div>
         <span class="blob" aria-hidden="true"></span>
         <span class="blob2" aria-hidden="true"></span>
         <span class="shadow-pad" aria-hidden="true"></span>
