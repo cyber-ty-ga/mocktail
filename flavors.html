@@ -183,6 +183,22 @@
         50%{transform:translateY(-4px)}
         100%{transform:translateY(0)}
       }
+      #cocktailsNotice{
+        margin:0 auto 40px;
+        max-width:1200px;
+        padding:16px 24px;
+        border-radius:18px;
+        background:rgba(31,122,224,.12);
+        color:var(--ink);
+        font-weight:700;
+        text-align:center;
+        box-shadow:0 12px 28px rgba(15,23,42,.12);
+      }
+      :root[data-theme="cocktails"] #cocktailsNotice{
+        background:rgba(255,255,255,.08);
+        color:var(--text);
+        box-shadow:0 12px 28px rgba(8,15,28,.28);
+      }
     </style>
 </head>
 <body>
@@ -369,6 +385,10 @@
     </div>
   </article>
 </section>
+
+<p id="cocktailsNotice" class="lead" role="status" aria-live="polite" hidden>
+  Cocktails are currently not available, but they'll be back on the menu soon.
+</p>
 
 <section class="grid cocktails">
   <!-- Cocktail Card 1 -->
@@ -570,6 +590,7 @@
     const pill  = document.getElementById('boozePill');
     const wordA = document.getElementById('wordA');
     const wordB = document.getElementById('wordB');
+    const cNotice = document.getElementById('cocktailsNotice');
 
     function setTheme(name){
       document.documentElement.setAttribute('data-theme', name);
@@ -579,6 +600,7 @@
       tText.textContent = isCocktails ? 'Cocktails' : 'Mocktails';
       btn.classList.toggle('pulse', !isCocktails);
       if(pill) pill.classList.toggle('show', !isCocktails);
+      if(cNotice) cNotice.hidden = !isCocktails;
       document.querySelectorAll('.grid.mocktails').forEach(el => el.style.display = isCocktails ? 'none' : '');
       document.querySelectorAll('.grid.cocktails').forEach(el => el.style.display = isCocktails ? '' : 'none');
       if(wordA) wordA.textContent = isCocktails ? 'Bold' : 'Fresh';
