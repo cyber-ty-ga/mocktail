@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Refresh with Nexus Mocktails: handcrafted non-alcoholic drinks for students, delivered chilled and ready for study breaks or celebrations." />
+    <meta name="description" content="Refresh with Nexus Mocktails: handcrafted non-alcoholic drinks delivered chilled for celebrations, hangouts, or any moment." />
     <meta property="og:title" content="Nexus Mocktails" />
-    <meta property="og:description" content="Handcrafted mocktails for students—discover signature flavors and quick delivery from Nexus Mocktails." />
+    <meta property="og:description" content="Handcrafted mocktails for every occasion - discover signature flavors and quick delivery from Nexus Mocktails." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://cyber-ty-ga.github.io/mocktail/" />
     <meta property="og:image" content="https://cyber-ty-ga.github.io/mocktail/images/Aurora%20Fizz.webp" />
@@ -115,6 +115,16 @@
       }
       .cta:hover{transform:translateY(-1px); box-shadow:0 18px 34px rgba(255,122,122,.32)}
       .cta svg{width:16px;height:16px}
+      .cta-wrap{display:flex;flex-wrap:wrap;gap:12px}
+      .cta.bulk{
+        background:#fff;
+        color:var(--pink);
+        border:1px solid rgba(255,106,140,.35);
+        box-shadow:none;
+      }
+      .cta.bulk:hover{
+        box-shadow:0 12px 28px rgba(255,122,122,.18);
+      }
 
       .media{
         position:relative;
@@ -334,14 +344,17 @@
         <h1 class="title">
           <span class="pink">Fresh</span>
           <span class="yellow" id="modeWord">Mocktails</span><br />
-          <span class="blue">for Students</span>
+          <span class="blue">for Everyone</span>
         </h1>
 
         <p class="lead">
-          Refreshing, handcrafted mocktails made with love, for students. Perfect for study breaks, celebrations, or just because, nje!
+          Refreshing, handcrafted mocktails made with love for any crowd. Perfect for celebrations, study breaks, office hangouts, or just because, nje!
         </p>
 
-        <a class="cta" href="flavors.html">Order Now</a>
+        <div class="cta-wrap">
+          <a class="cta" href="flavors.html">Order Now</a>
+          <a class="cta bulk" href="order.html#bulk">Bulk Orders 15+</a>
+        </div>
       </div>
 
       <div class="media">

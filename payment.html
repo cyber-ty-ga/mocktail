@@ -141,7 +141,7 @@
             <input type="radio" name="ship" value="dorm" />
             <div>
               <div>Dorm delivery</div>
-              <div class="meta">P5 within campus grounds</div>
+              <div class="meta">P15 within campus grounds</div>
             </div>
           </label>
         </div>
@@ -179,6 +179,7 @@
         <div class="summary" id="summary">
           <ul class="items" id="itemsList"></ul>
           <div class="row"><span>Subtotal</span><strong id="subtotal">P0</strong></div>
+          <div class="row"><span>Bulk Discount</span><strong id="discount">-P0</strong></div>
           <div class="row"><span>Delivery Fee</span><strong id="delivery">P0</strong></div>
           <div class="row"><span>Total</span><strong class="total" id="total">P0</strong></div>
           <button class="confirm" id="confirmBtn" type="submit" disabled>Confirm Order</button>
@@ -203,6 +204,7 @@
   const els = {
     items: document.getElementById('itemsList'),
     subtotal: document.getElementById('subtotal'),
+    discount: document.getElementById('discount'),
     delivery: document.getElementById('delivery'),
     total: document.getElementById('total'),
     confirm: document.getElementById('confirmBtn'),
@@ -212,10 +214,18 @@
   };
 
   const fmt = n => 'P' + Number(n).toFixed(0);
+  const fmtDiscount = n => n > 0 ? '-P' + Number(n).toFixed(0) : '-P0';
+  const BULK_THRESHOLD = 15;
+  const BULK_DISCOUNT  = 5;
 
   // build item list and subtotal
   function calcSubtotal(){
     return cart.reduce((s,it)=> s + Number(it.price)*Number(it.qty||1), 0);
+  }
+
+  function calcDiscount(){
+    const qty = cart.reduce((s,it)=> s + Number(it.qty || 1), 0);
+    return qty >= BULK_THRESHOLD ? qty * BULK_DISCOUNT : 0;
   }
 
   function renderItems(){
@@ -245,7 +255,7 @@
   function bindShipping(){
     document.querySelectorAll('input[name="ship"]').forEach(r=>{
       r.addEventListener('change', ()=>{
-        deliveryFee = r.value === 'dorm' ? 5 : 0;
+        deliveryFee = r.value === 'dorm' ? 15 : 0;
         updateSummary();
       });
     });
@@ -253,20 +263,31 @@
 
   function updateSummary(){
     const sub = calcSubtotal();
+    const discount = calcDiscount();
+    const net = Math.max(sub - discount, 0);
     els.subtotal.textContent = fmt(sub);
+    els.discount.textContent = fmtDiscount(discount);
     els.delivery.textContent = fmt(deliveryFee);
-    els.total.textContent = fmt(sub + deliveryFee);
+    els.total.textContent = fmt(net + deliveryFee);
     // share subtotal for back navigation safety
-    localStorage.setItem(SUB_KEY, String(sub));
-    els.orderSummary.value = buildSummary(sub);
+    localStorage.setItem(SUB_KEY, String(net));
+    els.orderSummary.value = buildSummary(sub, discount);
     validateForm();
   }
 
-  function buildSummary(sub){
+  function buildSummary(sub, discount){
     let lines = cart.map(it=>`${it.qty || 1} x ${it.name} - ${fmt(Number(it.price)*Number(it.qty||1))}`).join('\n');
     if(!lines) lines = 'No items';
-    const total = sub + deliveryFee;
-    return `${lines}\nSubtotal: ${fmt(sub)}\nDelivery: ${fmt(deliveryFee)}\nTotal: ${fmt(total)}`;
+    const net = Math.max(sub - discount, 0);
+    const parts = [
+      `Subtotal: ${fmt(sub)}`
+    ];
+    if(discount > 0){
+      parts.push(`Bulk discount: ${fmtDiscount(discount)}`);
+    }
+    parts.push(`Delivery: ${fmt(deliveryFee)}`);
+    parts.push(`Total: ${fmt(net + deliveryFee)}`);
+    return `${lines}\n${parts.join('\n')}`;
   }
 
   // highlight chosen payment card

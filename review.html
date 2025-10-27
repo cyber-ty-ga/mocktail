@@ -106,6 +106,7 @@
       <div class="pair"><div class="key">Notes</div><div class="val" id="vNotes">None</div></div>
 
       <div class="row"><span>Subtotal</span><strong id="vSub">P0</strong></div>
+      <div class="row"><span>Bulk discount</span><strong id="vDisc">-P0</strong></div>
       <div class="row"><span>Delivery fee</span><strong id="vDel">P0</strong></div>
       <div class="row"><span>Total</span><strong class="total" id="vTot">P0</strong></div>
 
@@ -128,7 +129,7 @@
           <label class="label" for="ship">Delivery choice</label>
           <select id="ship" class="input">
             <option value="pickup">Off campus pickup Free at BIUST Stop</option>
-            <option value="dorm">Dorm delivery P5 within campus grounds</option>
+            <option value="dorm">Dorm delivery P15 within campus grounds</option>
           </select>
         </div>
         <div class="field">
@@ -160,8 +161,16 @@
 
   const cart = JSON.parse(localStorage.getItem(CART_KEY) || '[]');
   const fmt = n => 'P' + Number(n).toFixed(0);
-  const shipText = v => v === 'dorm' ? 'Dorm delivery P5 within campus grounds' : 'Off campus pickup Free at BIUST Stop';
+  const fmtDiscount = n => n > 0 ? '-P' + Number(n).toFixed(0) : '-P0';
+  const BULK_THRESHOLD = 15;
+  const BULK_DISCOUNT  = 5;
+  const shipText = v => v === 'dorm' ? 'Dorm delivery P15 within campus grounds' : 'Off campus pickup Free at BIUST Stop';
   const payText  = v => ({zaka:'My Zaka',orange:'Orange Money',p2c:'Pay to Cell',cod:'Cash on Delivery'})[v] || 'Not set';
+
+  const calcCartDiscount = () => {
+    const qty = cart.reduce((s,it)=> s + Number(it.qty || 1), 0);
+    return qty >= BULK_THRESHOLD ? qty * BULK_DISCOUNT : 0;
+  };
 
   // read or build details
   let chk = JSON.parse(localStorage.getItem(CHK_KEY) || 'null');
@@ -183,11 +192,13 @@
 
   // compute from cart if needed
   const subFromCart = cart.reduce((s,it)=> s + Number(it.price) * Number(it.qty || 1), 0);
+  const discountFromCart = calcCartDiscount();
+  const netFromCart = Math.max(subFromCart - discountFromCart, 0);
   if(!chk){
-    chk = { fullName:'', phone:'', notes:'', ship:'pickup', pay:'', subtotal: subFromCart, delivery: 0 };
+    chk = { fullName:'', phone:'', notes:'', ship:'pickup', pay:'', subtotal: netFromCart, delivery: 0 };
   }
-  if(!chk.subtotal || chk.subtotal < 1) chk.subtotal = subFromCart;
-  if(typeof chk.delivery !== 'number') chk.delivery = chk.ship === 'dorm' ? 5 : 0;
+  if(!chk.subtotal || chk.subtotal < 1) chk.subtotal = netFromCart;
+  if(typeof chk.delivery !== 'number') chk.delivery = chk.ship === 'dorm' ? 15 : 0;
 
   // render items
   const list = document.getElementById('itemList');
@@ -212,9 +223,15 @@
     document.getElementById('vNotes').textContent = chk.notes ? chk.notes : 'None';
     document.getElementById('vShip').textContent  = shipText(chk.ship);
     document.getElementById('vPay').textContent   = payText(chk.pay);
-    document.getElementById('vSub').textContent   = fmt(chk.subtotal || 0);
-    document.getElementById('vDel').textContent   = fmt(chk.delivery || 0);
-    document.getElementById('vTot').textContent   = fmt((chk.subtotal || 0) + (chk.delivery || 0));
+    const delivery = chk.delivery || 0;
+    const discount = discountFromCart;
+    const baseSubtotal = subFromCart;
+    const netSubtotal = Math.max(baseSubtotal - discount, 0);
+    chk.subtotal = netSubtotal;
+    document.getElementById('vSub').textContent   = fmt(baseSubtotal);
+    document.getElementById('vDisc').textContent  = fmtDiscount(discount);
+    document.getElementById('vDel').textContent   = fmt(delivery);
+    document.getElementById('vTot').textContent   = fmt(netSubtotal + delivery);
   }
 
   // show inline editor when missing key fields
@@ -245,7 +262,7 @@
     chk.notes    = notes;
     chk.ship     = ship;
     chk.pay      = pay;
-    chk.delivery = ship === 'dorm' ? 5 : 0;
+    chk.delivery = ship === 'dorm' ? 15 : 0;
 
     localStorage.setItem(CHK_KEY, JSON.stringify(chk));
     editBox.hidden = true;

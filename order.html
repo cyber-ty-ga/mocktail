@@ -84,10 +84,10 @@
 
 <section class="wrap">
   <h1 class="title">Place Your Order</h1>
-  <p class="lead">Quick and easy ordering process</p>
+  <p class="lead">Quick and easy ordering process. Bulk orders (15+ drinks) automatically save P5 per drink.</p>
 </section>
 
-<section class="shell">
+<section class="shell" id="bulk">
   <div class="panel">
 
     <div class="side">
@@ -120,12 +120,13 @@
         <input type="radio" name="ship" value="dorm" />
         <div>
           <div>Dorm delivery</div>
-          <div class="meta">P5 within campus grounds</div>
+          <div class="meta">P15 within campus grounds</div>
         </div>
       </label>
 
       <div class="totals" style="margin-top:14px">
         <div class="row"><span>Subtotal</span><span id="sub">P0</span></div>
+        <div class="row"><span>Bulk discount</span><span id="disc">-P0</span></div>
         <div class="row"><span>Delivery fee</span><span id="ship">P0</span></div>
         <div class="row"><span class="grand">Total</span><span class="grand" id="grand">P0</span></div>
       </div>
@@ -133,7 +134,7 @@
       <div class="cta">
         <a id="browse" class="btn ghost" href="flavors.html">Browse flavors</a>
         <button id="checkout" class="btn disabled" type="button">Add items to cart</button>
-        <span class="note">Button activates after first item is added</span>
+        <span class="note">Button activates after first item is added. Bulk savings apply automatically.</span>
       </div>
 
     </div>
@@ -151,13 +152,18 @@
   const elEmpty = document.getElementById('cartEmpty');
   const elList  = document.getElementById('cartList');
   const elSub   = document.getElementById('sub');
+  const elDisc  = document.getElementById('disc');
   const elShip  = document.getElementById('ship');
   const elGrand = document.getElementById('grand');
   const btnCheckout = document.getElementById('checkout');
 
+  const BULK_THRESHOLD = 15;
+  const BULK_DISCOUNT  = 5;
+
   let lastSub = 0;
 
   function fmt(x){ return 'P' + x.toFixed(0); }
+  function fmtDiscount(x){ return x > 0 ? '-P' + x.toFixed(0) : '-P0'; }
 
   function render(){
     if(cart.length === 0){
@@ -165,6 +171,7 @@
       elList.hidden = true;
       elCount.textContent = '(0 items)';
       elSub.textContent = 'P0';
+      elDisc.textContent = '-P0';
       elShip.textContent = 'P0';
       elGrand.textContent = 'P0';
       btnCheckout.textContent = 'Add items to cart';
@@ -176,9 +183,13 @@
     elList.hidden = false;
     elList.innerHTML = '';
     let sub = 0;
+    let totalQty = 0;
 
     for(const it of cart){
-      sub += it.price * it.qty;
+      const price = Number(it.price) || 0;
+      const qty   = Number(it.qty) || 0;
+      sub += price * qty;
+      totalQty += qty;
 
       const row = document.createElement('div');
       row.className = 'item';
@@ -190,10 +201,10 @@
         </div>
         <div class="qty">
           <button aria-label="decrease">-</button>
-          <input aria-label="quantity" value="${it.qty}" readonly />
+          <input aria-label="quantity" value="${qty}" readonly />
           <button aria-label="increase">+</button>
         </div>
-        <div class="price">${fmt(it.price * it.qty)}</div>
+        <div class="price">${fmt(price * qty)}</div>
       `;
 
       const [ , , qtyBox ] = row.children;
@@ -216,14 +227,18 @@
       elList.appendChild(row);
     }
 
-    lastSub = sub;
-    elCount.textContent = `(${cart.reduce((a,b)=>a+b.qty,0)} items)`;
+    const discount = totalQty >= BULK_THRESHOLD ? totalQty * BULK_DISCOUNT : 0;
+    const netSub = Math.max(sub - discount, 0);
+    lastSub = netSub;
+
+    elCount.textContent = `(${totalQty} items)`;
     elSub.textContent = fmt(sub);
+    elDisc.textContent = fmtDiscount(discount);
 
     const shipMode = document.querySelector('input[name="ship"]:checked').value;
-    const fee = shipMode === 'dorm' ? 5 : 0;
+    const fee = shipMode === 'dorm' ? 15 : 0;
     elShip.textContent  = fmt(fee);
-    elGrand.textContent = fmt(sub + fee);
+    elGrand.textContent = fmt(netSub + fee);
 
     btnCheckout.textContent = 'Proceed to payment';
     btnCheckout.classList.remove('disabled');
